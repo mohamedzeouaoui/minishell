@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/10/26 05:55:48 by asodor           ###   ########.fr       */
+/*   Updated: 2024/10/27 06:30:17 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef struct s_data
 	t_files     	*files;//
 	struct s_data	*next;// next node
 }						t_data;
+
+typedef struct s_stack
+{
+	void	*ptr;
+	struct	s_stack	*next;
+}						t_stack;
 
 //parsing
 t_data *tokenize_input(char *input);
