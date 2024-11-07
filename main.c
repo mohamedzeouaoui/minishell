@@ -12,29 +12,29 @@
 
 #include "minishell.h"
 
-void    machiBash(){
-    char    *str;
-    t_data   *tmp;
+void	machiBash(void)
+{
+	char	*str;
+	t_data	*tmp;
 
-    str = NULL;
-    while (1)
-    {
-        //signals
-        str = readline("minishell $> ");
-        tmp = tokenize_input(str);// <-------- I'm Here
-        //add history
-        free(str);
-        if (tmp != NULL)
-        ft_exec(tmp, ft_lstsize(tmp));
-        //free
-    }
+	str = NULL;
+	while (1)
+	{
+		// signals
+		str = readline("minishell $> ");
+		tmp = tokenize_input(str); // <-------- I'm Here
+		// add history
+		free(str);
+		if (tmp != NULL)
+			ft_exec(tmp, ft_lstsize(tmp));
+		// free
+	}
 }
 
-
-
-int main(int ac, char **av, char **env) {
-    (void)ac;
-    (void)av;
-    machiBash();
-    return 0;
+int	main(int ac, char **av, char **env)
+{
+	(void)ac;
+	(void)av;
+	machiBash();
+	return (0);
 }

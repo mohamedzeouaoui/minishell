@@ -19,29 +19,29 @@
 
 typedef struct s_files
 {
-	char				*redirection;
-	char				*file;
-	int					heredoc_fd; //<-------
+	char			*redirection;
+	char			*file;
+	int heredoc_fd; //<-------
 	struct s_files	*next;
-}						t_files;
+}					t_files;
 
 typedef struct s_data
 {
-	char			**args;//--> cmd args ex: "ls" "-la"
-	t_files     	*files;//
-	struct s_data	*next;// next node
-}						t_data;
+	char **args;         //--> cmd args ex: "ls" "-la"
+	t_files *files;      //
+	struct s_data *next; // next node
+}					t_data;
 
 typedef struct s_stack
 {
-	void	*ptr;
-	struct	s_stack	*next;
-}						t_stack;
+	void			*ptr;
+	struct s_stack	*next;
+}					t_stack;
 
-//parsing
-t_data *tokenize_input(char *input);
+// parsing
+t_data				*tokenize_input(char *input);
 
-//utils
-t_data  *ft_lstnew(void);
+// utils
+t_data				*ft_lstnew(void);
 
 #endif
