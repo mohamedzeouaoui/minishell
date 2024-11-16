@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memory_management.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asodor <asodor@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 06:08:11 by asodor            #+#    #+#             */
-/*   Updated: 2024/10/27 06:50:23 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/16 02:51:39 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 /*
     **Maintain heap allocation list
@@ -20,7 +20,6 @@
 static  t_stack    **get_head(void)
 {
     static t_stack *head;
-    head = NULL;
     return (&head);
 }
 
@@ -31,7 +30,7 @@ static  t_stack    **get_head(void)
 ** Returns: Pointer to allocated memory
 */
 
-void    *malloc_(size_t size)
+void    *mallocc(size_t size)
 {
     t_stack    *new_node;
     t_stack    **head;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asodor <asodor@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/10/26 06:29:36 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/16 02:42:23 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,11 @@ t_data *parse_command(char *str, int *pos, int start, int end)
         while (str[start] && str[start] != '|' && !ft_iswhitespace(str[start]))
         {
             end = start;
-            if (!processtoken(str, &start, &end))
+            if (!process_token(str, &start, &end))
                 return (NULL);  // Quote error
                 
             token = ft_substr(str, start, end - start);
-            arguments = ft_tablejoin(arguments, token);
+            arguments = ft_cmd_join(arguments, token);
             start = end;
         }
     }
@@ -134,7 +134,7 @@ t_data *tokenize_input(char *input)
 
     // Add space for consistent parsing
     if (input && input[0])
-        input = ft_strnjoin(input, " ", 1);
+        input = ft_strjoin(input, " ", 1);
 
     // Process each command (separated by pipes)
     while (input[curr_pos])
@@ -143,21 +143,21 @@ t_data *tokenize_input(char *input)
         if (!new_cmd)
         {
             //get_specials()->exit_status = 2;
-            print_err("Syntax error: Unclosed quotes\n");
+            //print_err("Syntax error: Unclosed quotes\n");
             return (NULL);
         }
         ft_lstadd_back(&cmd_list, new_cmd);
     }
 
     // Final error checking and status setting
-    if (cmd_list && !check_errors(cmd_list))
-        return (NULL);
+    //if (cmd_list && /*!ft_errors(cmd_list)*/)
+      //  return (NULL);
         
-    if (cmd_list)
-    {
+   // if (cmd_list)
+    //{
         //get_specials()->exit_status = 0;
-        set_last_arg(cmd_list);
-    }
+        //set_last_arg(cmd_list);
+    //}
 
     return (cmd_list);
 }

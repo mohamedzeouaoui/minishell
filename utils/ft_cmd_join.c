@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_join.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asodor <asodor@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 04:51:52 by asodor            #+#    #+#             */
-/*   Updated: 2024/10/27 06:01:43 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/14 02:50:45 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ char    **ft_cmd_join(char **original_arr, char *new_str)
         return (original_arr);
     if (!original_arr)
     {
-        new_arr = (char **)malloc(sizeof(char *) * 2);
+        new_arr = (char **)mallocc(sizeof(char *) * 2);
         new_arr[0] = ft_strdup(new_str);
         new_arr[1] = NULL;
         return (new_arr);
     }
     //count strings in original arr
     while (original_arr[len++]);
-    new_arr = (char **)malloc(sizeof(char  *) * (len + 2));
+    new_arr = (char **)mallocc(sizeof(char  *) * (len + 2));
     //copy existing strings
     len = 0;
     while(original_arr[len])
