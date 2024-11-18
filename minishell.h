@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/16 03:02:56 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/18 01:48:00 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ typedef struct s_stack
 
 typedef struct s_files
 {
-	char			*redirection;
+	char			*redirection; 
 	char			*file;
-	int heredoc_fd; //<-------
+	//int heredoc_fd; //<-------
 	struct s_files	*next;
 }					t_files;
 

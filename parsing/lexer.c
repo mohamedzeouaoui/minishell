@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/16 02:42:23 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/17 22:41:43 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ t_data *tokenize_input(char *input)
         }
         ft_lstadd_back(&cmd_list, new_cmd);
     }
+    parse_redirections(cmd_list);
 
     // Final error checking and status setting
     //if (cmd_list && /*!ft_errors(cmd_list)*/)
