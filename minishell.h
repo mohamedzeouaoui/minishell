@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/18 01:48:00 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/19 19:23:52 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	ft_lstadd_back(t_data **lst, t_data *new);
 //----> set_last_arg
 
 // parsing
-t_data				*tokenize_input(char *input);
+t_data *tokenize_input(char *input);
+void parse_redirections(t_data *cmd_list);
+int ft_errors(t_data *cmd_list);
 
 #endif

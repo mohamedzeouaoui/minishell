@@ -6,16 +6,17 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 02:14:50 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/18 17:24:25 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/19 18:02:41 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+#include <string.h>
 /*
 ** Check if string is a redirection operator
 ** Returns: 1 if redirection, 0 if not
 */
+
 static int is_redirection(const char *str)
 {
     int i;
@@ -23,12 +24,34 @@ static int is_redirection(const char *str)
 
     for (i = 0; i < 4; i++)
     {
-        if (ft_strcmp(str, reds[i]) == 0)
+        if (strcmp(str, reds[i]) == 0)
             return (1);
     }
     return (0);
 }
+static t_files *make_new(char *operator, char *filename)
+{
+    t_files *new_file;
 
+    new_file = (t_files *)mallocc(sizeof(t_files));
+    new_file->redirection = ft_strdup(operator);
+    new_file->file = ft_strdup(filename);
+    new_file->next = NULL;
+    return (new_file);
+}
+static t_files *add_last(t_files **files, t_files *new_file)
+{
+    t_files *current;
+
+    if (!*files)
+        return (new_file);
+
+    current = *files;
+    while (current->next)
+        current = current->next;
+    current->next = new_file;
+    return (*files);
+}
 /*
 ** Process a single redirection operator and its argument
 ** Updates index to skip processed tokens
@@ -36,7 +59,7 @@ static int is_redirection(const char *str)
 */
 static int process_redirection(t_data *cmd, char **args, int *index)
 {
-    t_file  *new_file;
+    t_files  *new_file;
     char    *operator;
     char    *filename;
 
@@ -63,6 +86,20 @@ static int process_redirection(t_data *cmd, char **args, int *index)
     return (1);
 }
 
+static char **ft_new_args(char **args)
+{
+    int i;
+    char **new_args;
+
+    i = 0;
+    new_args = NULL;
+    while (args && args[i])
+    {
+        new_args = ft_cmd_join(new_args, args[i]);
+        i++;
+    }
+    return (new_args);
+}
 /*
 ** Process all redirections in a command
 ** Separates redirections from command arguments

@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/17 22:41:43 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/19 19:16:32 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 ** Checks if character is part of a word/token
 ** Returns 1 if true, 0 if false
 */
+
 int is_word_character(const char *str, int pos, char quote_status)
 {
     if (!str[pos] || quote_status != '\0')
@@ -75,7 +76,7 @@ int process_token(const char *str, int *start, int *end)
 void initialize_command_data(t_data **cmd_list, char ***arg_array)
 {
     *cmd_list = ft_lstnew();
-    *arg_array = (char **)malloc(sizeof(char *));
+    *arg_array = (char **)mallocc(sizeof(char *));
     (*arg_array)[0] = NULL;
 }
 
@@ -148,11 +149,11 @@ t_data *tokenize_input(char *input)
         }
         ft_lstadd_back(&cmd_list, new_cmd);
     }
+ 
     parse_redirections(cmd_list);
-
     // Final error checking and status setting
-    //if (cmd_list && /*!ft_errors(cmd_list)*/)
-      //  return (NULL);
+    if (cmd_list && !ft_errors(cmd_list))
+        return (NULL);
         
    // if (cmd_list)
     //{

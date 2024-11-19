@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 06:56:19 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/16 15:41:36 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/19 18:50:14 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,30 @@ int main(void)
         t_data *current = cmd_list;
         int cmd_num = 0;
         
-        while (current)
-        {
-            printf("\n=== Command %d ===\n", ++cmd_num);
-            printf("Arguments: ");
-            if (current->args)
-            {
-                for (int i = 0; current->args[i]; i++)
-                    printf("[%s] ", current->args[i]);
-            }        
-            current = current->next;
-            printf("\n");
-        }
+                while (current)
+                {
+                    printf("\n=== Command %d ===\n", ++cmd_num);
+                    
+                    // Print arguments
+                    printf("Arguments: ");
+                    if (current->args)
+                    {
+                        for (int i = 0; current->args[i]; i++)
+                            printf("[%s] ", current->args[i]);
+                        if (current->files){
+                            printf("\n");
+                            for (t_files *file = current->files; file; file = file->next)
+                            {
+                                printf("\tRedirection: %s\n", file->redirection);
+                                printf("\tFile: %s\n", file->file);
+                            }
+                        }
+                    }
+                    printf("\n");
+                    
+                    
+                    current = current->next;
+                }
         
         // Clean up
         //free_command_list(cmd_list);
