@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 06:56:19 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/19 18:50:14 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/23 01:02:15 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ int main(void)
         
         // Print command structure
         t_data *current = cmd_list;
+        if (!current)
+            printf("errrrr/n");
         int cmd_num = 0;
-        
                 while (current)
                 {
                     printf("\n=== Command %d ===\n", ++cmd_num);
