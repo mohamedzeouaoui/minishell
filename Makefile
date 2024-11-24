@@ -1,8 +1,8 @@
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -g3 #-fsanitize=address
 RM = rm -rf
-UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c ./utils/ft_iswhitespace.c ./utils/ft_lst.c ./utils/ft_strdup.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c  
-PARSING = ./parsing/lexer.c
+UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c ./utils/ft_iswhitespace.c ./utils/ft_lst.c ./utils/ft_strdup.c ./utils/ft_strjoin.c ./utils/ft_strlen.c ./utils/ft_substr.c  ./utils/ft_print.c 
+PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_error.c
 CFILES = main.c  ${PARSING} ${UTILS}
 OFILES = ${CFILES:.c=.o}
 NAME = minishell
