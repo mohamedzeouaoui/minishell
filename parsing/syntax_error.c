@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/24 02:57:44 by asodor           ###   ########.fr       */
+/*   Updated: 2024/11/24 03:30:48 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_data	*ft_red_error(t_data *cmd_list)
 {
 	t_data			*curr;
-	t_files		*tmp;
+	t_files	*tmp;
 
 	curr = cmd_list;
 	while (curr)
