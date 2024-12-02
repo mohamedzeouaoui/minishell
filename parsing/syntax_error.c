@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/24 03:30:48 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/01 11:44:47 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,17 @@ t_data	*ft_red_error(t_data *cmd_list)
 	while (curr)
 	{
 		tmp = curr->files;
-		while (curr->files)
+		while (tmp)
 		{
-			if (curr->files->file == NULL)
+			if (tmp->file == NULL)
 			{
 				//get_specials()->exit_status = 2;
 				ft_print_err1("syntax error near unexpected token ",
-					curr->files->redirection, "\n", -1);
-				curr->files = tmp;
+					tmp->redirection, "\n", -1);
 				return (NULL);
 			}
-			curr->files = curr->files->next;
+			tmp = tmp->next;
 		}
-		curr->files = tmp;
 		curr = curr->next;
 	}
 	return (cmd_list);
@@ -78,7 +76,7 @@ t_data	*ft_errors(t_data *cmd_list)
 	}
 	//if (!expand_file(cmd_list))
 		//return (NULL);
-	//expand(cmd_list);
+	//ft_expand(cmd_list);
 	return (cmd_list);
 }
 
