@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/04 21:50:49 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/04 21:55:04 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,12 @@ typedef struct s_files
 	//int heredoc_fd; //<-------
 	struct s_files	*next;
 }					t_files;
+typedef struct s_env {
+	char *key;
+	char *value;
+	struct s_env *next;
+} t_env;
 
-typedef struct  s_env
-{
-	char	*key;
-	char	*value;
-	struct s_env	*next;
-}	t_env;
 
 // utils
 unsigned int	ft_strlen(const char *s1);
@@ -57,13 +56,16 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 t_data  *ft_lstnew(void);
 char    **ft_cmd_join(char **original_arr, char *new_str);
 void	ft_lstadd_back(t_data **lst, t_data *new);
-//----> print_err
-//----> ft_errors
+int	ft_print_err(char *err);
+void	ft_print_err1(char *s1, char *s2, char *s3, int f);
 //----> set_last_arg
 
 // parsing
 t_data *tokenize_input(char *input);
 void parse_redirections(t_data *cmd_list);
-int ft_errors(t_data *cmd_list);
+t_data	*ft_errors(t_data *cmd_list);
+
+// expand
+
 
 #endif
