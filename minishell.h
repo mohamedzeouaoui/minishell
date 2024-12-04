@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/19 19:23:52 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/04 21:50:49 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@ typedef struct s_files
 	//int heredoc_fd; //<-------
 	struct s_files	*next;
 }					t_files;
+
+typedef struct  s_env
+{
+	char	*key;
+	char	*value;
+	struct s_env	*next;
+}	t_env;
 
 // utils
 unsigned int	ft_strlen(const char *s1);
