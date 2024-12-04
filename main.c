@@ -42,10 +42,13 @@
 #include "minishell.h"
 #include <stdio.h>
 
-int main(void)
+int main(int ac, char **av, char **env)
 {
     t_data    *cmd_list;
     char        *input;
+    (void)av;
+    (void)ac;
+    (void)env;
 
     while (1)
     {
