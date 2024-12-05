@@ -16,7 +16,7 @@ t_shell *get_shell_state(void)
 {
     static t_shell	s;
     return (&s);
-}
+} 
 
 void	minishell(void)
 {
