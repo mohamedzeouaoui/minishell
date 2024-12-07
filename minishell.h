@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/06 17:15:04 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/07 02:46:58 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_files
 {
 	char			*redirection; 
 	char			*file;
-	//int heredoc_fd; //<-------
+	int heredoc_fd;
 	struct s_files	*next;
 }					t_files;
 
