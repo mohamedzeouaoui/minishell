@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/07 01:45:59 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/09 03:21:20 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,12 @@ t_data	*ft_errors(t_data *cmd_list)
 	// 	return (NULL);
 	if (!ft_red_error(cmd_list) || !ft_pipe_error(cmd_list))
 	{
-		expand_file(cmd_list);
+		//check for file!!!
 		shell->exit_status = 2;
 		return (NULL);
 	}
-	if (!expand_file(cmd_list))
-		//return (NULL);
-	//ft_expand(cmd_list);
+	// check for file
+	ft_expand(cmd_list);
 	return (cmd_list);
 }
 
