@@ -21,7 +21,7 @@ t_shell *get_shell_state(void)
 void	minishell(void)
 {
 	char	*str;
-	//t_data	*tmp;
+	t_data	*tmp;
 
 	str = NULL;
 	while (1)
@@ -31,8 +31,8 @@ void	minishell(void)
 		tokenize_input(str); // <-------- I'm Here
 		// add history
 		free(str);
-		//if (tmp != NULL)
-		//	ft_exec(tmp, ft_lstsize(tmp));
+		// if (tmp != NULL)
+		// 	ft_exec(tmp, ft_lstsize(tmp));
 		// free
 	}
 }

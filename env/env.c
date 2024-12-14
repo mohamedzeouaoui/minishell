@@ -36,3 +36,17 @@ char **env_lst_to_tab(void)
     env1[i] = NULL;
     return (env1);
 }
+
+t_env *serch_in_env(char *key)
+{
+    t_env *head;
+
+    head = get_shell_state()->env;
+    while (head)
+    {
+        if (ft_strncmp(head->key, key, ft_strlen(key)) == 0)
+            return (head);
+        head = head->next;
+    }
+    return ( NULL);
+}
