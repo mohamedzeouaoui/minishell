@@ -34,7 +34,7 @@ int env_free_node(char *key)
 }
 
 
-ft_unset(t_data *data)
+int ft_unset(t_data *data)
 {
     t_env *head;
     int i;

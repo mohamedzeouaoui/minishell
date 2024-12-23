@@ -15,8 +15,14 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
-#include <unistd.h>
+# include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+# include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
+
 
 typedef struct s_files t_files;
 
@@ -71,7 +77,10 @@ int	ft_lstsize(t_data *lst);
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putstr_fd(char *s, int fd);
 int print_errore(char *error);
-print_errore_mix(char *error, char *error2, char *error3, int exit_status);
+int print_errore_mix(char *error, char *error2, char *error3, int exit_status);
+int print_errore_exit(char *error, int exit_status);
+char	**ft_split(char const *s, char c);
+
 //----> set_last_arg
 
 // parsing
@@ -87,11 +96,12 @@ char *ft_key(char *env, int *i) ;
 char *ft_value(char *env, int *i);
 void	ft_parse_env(char **env, t_shell *shell);
 t_env *serch_in_env(char *key);
+char **env_lst_to_tab(void);
 
 
 // execution
 void    ft_exec(t_data *data, int size);
-int cheack_built(t_data *data, int prosses);
+int check_built(t_data *data, int prosses);
 char **env_lst_to_tab(void);
 void ft_builtins_run(t_data *data, int prosses);
 int is_builtins(t_data *data);
@@ -101,6 +111,8 @@ void    exit_clean(int exit_status);
 int ft_echo(t_data *data);
 int ft_cd(t_data *data);
 int ft_env(char **env, int prosses);
-int ft_pwd(t_data *data);
+int ft_pwd(void);
+void pwd_intialize(void);
+int ft_unset(t_data *data);
 
 #endif

@@ -17,9 +17,14 @@ int print_errore(char *error)
     ft_putstr_fd(error, STDERR_FILENO);
     return(0);
 }
+int print_errore_exit(char *error, int exit_status)
+{
+    ft_putstr_fd(error, STDERR_FILENO);
+    exit(exit_status);// should be exit with ft_exit_clean !!!!
+    return(0);
+}
 
-
-print_errore_mix(char *error, char *error2, char *error3, int exit_status)
+int print_errore_mix(char *error, char *error2, char *error3, int exit_status)
 {
     char *message;
     char *var;
@@ -34,6 +39,7 @@ print_errore_mix(char *error, char *error2, char *error3, int exit_status)
     if(message != NULL)
         print_errore(message);
     if (exit_status != 0 && exit_status != -1)
-        exiter(exit_status);
+        exit(exit_status);
+        //you should exite here with function exiterrr
     return(0);
 }
