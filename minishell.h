@@ -113,6 +113,7 @@ int ft_cd(t_data *data);
 int ft_env(char **env, int prosses);
 int ft_pwd(void);
 void pwd_intialize(void);
+void ft_exit(t_data *data, int prosses, int *exit_status);
 int ft_unset(t_data *data);
 
 #endif
