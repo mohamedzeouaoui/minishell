@@ -9,7 +9,7 @@ ENV = ./env/env.c ./env/env_utils.c ./env/ft_parse_env.c
 PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_error.c
 EXECUTION = ./execution/execution.c ./execution/builtins/builtins.c ./execution/builtins/ft_echo.c \
 	./execution/builtins/ft_cd.c ./execution/exit_file.c ./execution/builtins/ft_pwd.c \
-	./execution/builtins/ft_env.c ./execution/builtins/ft_unset.c 
+	./execution/builtins/ft_env.c ./execution/builtins/ft_unset.c ./execution/builtins/ft_exit.c 
 CFILES = test.c  ${PARSING} ${UTILS} ${EXECUTION} ${ENV}
 OFILES = ${CFILES:.c=.o}
 NAME = minishell
