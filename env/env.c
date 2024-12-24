@@ -60,8 +60,14 @@ t_env *serch_in_env(char *key)
     while (head)
     {
         if (ft_strncmp(head->key, key, ft_strlen(key)) == 0)
+        {  
+        printf("key: %s\n", head->key);
             return (head);
+
+        }
         head = head->next;
     }
+            printf("key: %s\n", head->key);
+
     return ( NULL);
 }
