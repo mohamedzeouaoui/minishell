@@ -79,11 +79,18 @@ t_shell *get_shell_state(void)
 //     return (0);
 // }
 
-int main(void)
+int main(int ac, char **av, char **env)
 {
     t_data *cmd_list;
     char *input;
 
+    t_shell *shell;
+    
+    shell = get_shell_state();
+    shell->exit_status = 0;
+    ft_parse_env(env, shell);
+    
+    
     while (1)
     {
         // Get input from user
@@ -102,6 +109,7 @@ int main(void)
         if (!current)
             printf("Error: Command list is empty\n");
         int cmd_num = 0;
+
         while (current)
         {
             // printf("\n=== Command %d ===\n", ++cmd_num);

@@ -46,7 +46,7 @@ int cd_to_path(t_data *data)
 				"No such file or directory\n", -1);
         return (1);
     }
-    else if (chdir(data->args[1][0]) != '\0' && chdir(data->args[1]) == -1)
+    else if (data->args[1][0] != '\0' && chdir(data->args[1]) == -1)
     {
         free(path);
         print_errore("minishell: cd: ");
@@ -76,7 +76,7 @@ int home_cd(void)
     }
     else if (chdir(serch_in_env("HOME")->value) == -1 && serch_in_env("HOME")->value != NULL)
     {
-        frr(home);
+        free(home);
         print_errore("minishell: cd: ");
         perror(serch_in_env("HOME")->value);
         return (1);
@@ -103,7 +103,7 @@ int ft_cd(t_data *data)
     }
     else
     {
-        i = cd_to_path(data->args[1]);
+        i = cd_to_path(data);
         return (i);
     }
     return (0);

@@ -46,6 +46,8 @@ int main(int ac, char **av, char **env)
     shell = get_shell_state();
     shell->exit_status = 0;
     ft_parse_env(env, shell);
+	get_shell_state()->env = shell->env;
+	pwd_intialize();
     minishell();
     return 0;
 }

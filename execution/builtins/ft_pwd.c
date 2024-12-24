@@ -12,7 +12,12 @@
 
 #include "../../minishell.h"
 
-int ft_pwd(t_data *data)
+void pwd_intialize(void) 
+{
+    get_shell_state()->pwd = getcwd(NULL, 0);
+}
+
+int ft_pwd()
 {
     char *path;
 

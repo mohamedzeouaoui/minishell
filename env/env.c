@@ -12,6 +12,21 @@
 
 #include "../minishell.h"
 
+int	ft_lstsize2(t_env *lst)
+{
+	int	i;
+
+	i = 0;
+	if (lst == NULL)
+		return (0);
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
+
 char **env_lst_to_tab(void)
 {
     t_env *head;
@@ -20,7 +35,7 @@ char **env_lst_to_tab(void)
 
     i = 0;
     head = get_shell_state()->env;
-    env1 = (char **)mallocc(sizeof(char *) * (ft_lstsize(head) + 1));
+    env1 = (char **)mallocc(sizeof(char *) * (ft_lstsize2(head) + 1));
     if (!env1)
         return (NULL);
     while (head)
@@ -45,8 +60,14 @@ t_env *serch_in_env(char *key)
     while (head)
     {
         if (ft_strncmp(head->key, key, ft_strlen(key)) == 0)
+        {  
+        printf("key: %s\n", head->key);
             return (head);
+
+        }
         head = head->next;
     }
+            printf("key: %s\n", head->key);
+
     return ( NULL);
 }

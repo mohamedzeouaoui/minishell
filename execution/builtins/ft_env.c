@@ -18,10 +18,11 @@ int ft_env(char **env, int prosses)
 
     i = 0;
     (void)prosses;
-    while(env != NULL && env[i] != '\0')
+    while(env != NULL && env[i] != NULL)
     {
         printf("%s\n", env[i]);
         i++;
     }
+
     return (0);
 }
