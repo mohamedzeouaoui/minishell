@@ -17,6 +17,7 @@ int env_free_node(char *key)
     t_env *head;
     t_env *tmp;
 
+    head = get_shell_state()->env;
     while (head->next)
     {
         if(ft_strncmp(head->next->key, key, ft_strlen(key) + 1) == 0)
