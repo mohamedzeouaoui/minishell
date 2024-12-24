@@ -110,7 +110,7 @@ int command_execution(t_data *data, int size)
 {
 
     command_not_found(data);
-
+    printf("PATH: %s\n", serch_in_env("PATH")->value);
 
     if (check_slash_in_path(data->args[0]) == true)
         check_run_path_not_commande(data->args[0], data);
@@ -170,12 +170,13 @@ void    ft_exec(t_data *data, int size)
     while (i < size && data != NULL)
     {
         run_command_in_child_process(data, id_child, size, &i);
+        data = data->next;
         i++;
     }
     // wait(NULL);
     int status;
     waitpid(-1, &status, 0);
-    printf("status: %d\n", status);
+    // printf("status: %d\n", status);
     // while (i < size)
     // {
     //     printf("wait:%d\n", id_child[i]);
