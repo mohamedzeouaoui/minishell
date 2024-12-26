@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-t_env *key_value(char *env)
+t_env *ft_key_value(char *env)
 {
     t_env *new;
     char *key;
@@ -26,7 +26,7 @@ t_env *key_value(char *env)
     return (new);
 }
 
-void add_env(t_env **env, t_env *new)
+void ft_add_env(t_env **env, t_env *new)
 {
     t_env *tmp;
     

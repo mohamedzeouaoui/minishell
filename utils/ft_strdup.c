@@ -33,3 +33,24 @@ char    *ft_strdup(const char *s1)
 
     return str;
 }
+
+char    *ft_strdup_normal(const char *s1)
+{
+    char	*str;
+    size_t	len;
+    size_t	i;
+    if (!s1)
+        return NULL;
+        
+    len = ft_strlen(s1);
+    str = (char *)mallocc(len + 1);
+    if (!str)
+        return (NULL);
+    i = 0;
+
+    while(i <= len){
+        str[i] = s1[i];
+        i++;
+    }
+    return str;
+}
