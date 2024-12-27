@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/26 19:17:46 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/26 20:17:20 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,9 +152,10 @@ t_data *tokenize_input(char *input)
     }
     parse_redirections(cmd_list);
     // Final error checking and status setting
-    if (cmd_list && !ft_errors(cmd_list) && !ft_expand(cmd_list))
+    if (cmd_list && !ft_errors(cmd_list))
         return (NULL);
-   if (cmd_list)
+    ft_expand(cmd_list);
+    if (cmd_list)
     {
         shell = get_shell_state();
         shell->exit_status = 0;
