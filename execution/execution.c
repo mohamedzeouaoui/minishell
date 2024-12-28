@@ -36,6 +36,8 @@ bool check_slash_in_path(char *path)
     return (false);
 }
 
+
+
 int check_dirctory(char *path)
 {
     struct stat sb;
@@ -110,7 +112,6 @@ int command_execution(t_data *data, int size)
 {
 
     command_not_found(data);
-    printf("PATH: %s\n", serch_in_env("PATH")->value);
 
     if (check_slash_in_path(data->args[0]) == true)
         check_run_path_not_commande(data->args[0], data);
@@ -120,38 +121,94 @@ int command_execution(t_data *data, int size)
     //ft_exit_clean(get_shell_state()->exit_status);
     return (0);
 }
-
-void run_command_in_child_process(t_data *data, int *id_child, int size, int *i)
+int ft_dup2(int fd1, int fd2)
 {
-    // int fd_pipe[2];
-    int fd_stdout;
+    if (dup2(fd1, fd2) == -1)
+        print_errore_exit("dup2_error\n", 1);
+    return (0);
+}
 
-    // if (size > 1 && *i < size - 1)
-    // {
-    //     if (pipe(fd_pipe) == -1)
-    //         print_errore_exit("pipe_error", 1);
-    // }
-   int pid = fork();
-    // if ((id_child[*i] = fork()) == -1)
-    //     print_errore_exit("fork_error", 1);
-    // printf("parent\n,%d\n", id_child[*i]);
-    // close(fd_stdin);
-    // printf("child\n");
-    if (pid == 0)
+void files_pipe(int fd_pipe[2], int fd_stdout_stored, int size, int i)
+{
+    if (size <= 1)
+        return ;    
+    if (i == 0)
+    {
+        ft_dup2(fd_pipe[p_inp], 1);
+        close(fd_pipe[p_inp]); // ft_close
+        close(fd_pipe[p_outp]); // ft_close
+    }
+    if (i > 0 && i < size - 1)
+    {
+        ft_dup2(fd_stdout_stored, 0);
+        close(fd_stdout_stored);
+        ft_dup2(fd_pipe[p_inp], 1);
+        close(fd_pipe[p_inp]);
+        close(fd_pipe[p_outp]);
+    }
+    if (i == size - 1)
+    {
+        ft_dup2(fd_stdout_stored, 0);
+        close(fd_stdout_stored);
+    }
+}
+
+// void file_redirection(t_files *file, int prosses)
+// {
+//     int fd;
+//     int i;
+
+//     i = 0;
+    
+//     while (file != NULL)
+//     {
+//         if (ft_strncmp(file->redirection, ">", 1) == 0 || ft_strncmp(file->redirection, ">>", 2) == 0)
+//         {
+
+//         }
+//         else if (ft_strncmp(file->redirection, "<", 1) == 0 || ft_strncmp(file->redirection, "<<", 2) == 0)
+//         {
+//             fd = open(file->file, O_RDONLY);
+//             if (fd == -1)
+//                 print_errore_exit("open_error\n", 1);
+//             ft_dup2(fd, 0);
+//         }
+        
+//         file = file->next;
+//     }
+    
+// }
+
+
+void run_command_in_child_process(t_data *data, int *id_child, int size, int i)
+{
+    int fd_pipe[2];
+    int fd_stdout_stored;
+
+    if (size > 1 && i < size - 1)
+    {
+        if (pipe(fd_pipe) == -1)
+            print_errore_exit("pipe_error\n", 1);
+    }
+    if ((id_child[i] = fork()) == -1)
+        print_errore_exit("fork_error\n", 1);
+    if (id_child[i] == 0)
     {
         if (check_built(data, 0) == 0)
         {
-
-            command_execution(data, size);
+            files_pipe(fd_pipe, fd_stdout_stored, size, (i));
+            // if(data->files != NULL)
+            //     file_redirection(data->files, 0);
+            if (is_builtins(data) == 0)
+                command_execution(data, size);
         }
-        // if()ls  | ls | ls
-        // {
-        //     // hamdel file
-        // }       
         exit(get_shell_state()->exit_status);
     }
-    
-    // waitpid(id_child[*i], &get_shell_state()->exit_status, 0);
+    if (i != size - 1)
+        close(fd_pipe[p_inp]);
+    if (i > 0)
+        close(fd_pipe[p_outp]);
+    fd_stdout_stored = fd_pipe[p_outp];
 }
 
 void    ft_exec(t_data *data, int size)
@@ -163,24 +220,16 @@ void    ft_exec(t_data *data, int size)
 
     if (check_built(data, 1) == 1 && size == 1)
         return ;
+    id_child = (int *)mallocc(sizeof(int) * size);
     get_shell_state()->exit_status = 0;
-    // if(command_execution(data, size) == 1 && size == 1)
-    //     return ;
     i = 0;
     while (i < size && data != NULL)
     {
-        run_command_in_child_process(data, id_child, size, &i);
+        run_command_in_child_process(data, id_child, size, i);
         data = data->next;
         i++;
     }
-    // wait(NULL);
     int status;
     waitpid(-1, &status, 0);
-    // printf("status: %d\n", status);
-    // while (i < size)
-    // {
-    //     printf("wait:%d\n", id_child[i]);
-    //     waitpid(id_child[i], &get_shell_state()->exit_status, 0);
-    //     i++;
-    // }
+    
 }
