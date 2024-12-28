@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 00:27:25 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/09 00:27:28 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2024/12/28 09:25:24 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,16 @@ char **env_lst_to_tab(void)
     return (env1);
 }
 
-t_env *serch_in_env(char *key)
+t_env *search_in_env(char *key)
 {
     t_env *head;
 
     head = get_shell_state()->env;
     while (head)
     {
-        if (ft_strncmp(head->key, key, ft_strlen(key)) == 0)
-        {  
-        printf("key: %s\n", head->key);
+        if (ft_strncmp(head->key, key, ft_strlen(key)) == 0) 
             return (head);
-
-        }
         head = head->next;
     }
-            printf("key: %s\n", head->key);
-
     return ( NULL);
 }
