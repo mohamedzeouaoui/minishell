@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/07 02:46:58 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/28 10:18:02 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_env *ft_env_new_node(char *k, char *v);
 char *ft_key(char *env, int *i) ;
 char *ft_value(char *env, int *i);
 void	ft_parse_env(char **env, t_shell *shell);
-t_env *serch_in_env(char *key);
+t_env *search_in_env(char *key);
 char **env_lst_to_tab(void);
 
 
