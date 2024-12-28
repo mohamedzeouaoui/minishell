@@ -16,13 +16,14 @@
 # include <readline/readline.h>
 # include <signal.h>
 # include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
-
+# define p_inp 1
+# define p_outp 0
 
 typedef struct s_files t_files;
 
