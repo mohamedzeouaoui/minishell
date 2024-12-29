@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:00:38 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/06 17:00:43 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:55:26 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,12 @@ void check_in_env_path_cmd(char *cmd, t_data *data)
     int i;
     char *new_path;
 
-    if (serch_in_env("PATH") == NULL || serch_in_env("PATH")->value == NULL || serch_in_env("PATH")->value[0] == '\0')
+    if (search_in_env("PATH") == NULL || search_in_env("PATH")->value == NULL || search_in_env("PATH")->value[0] == '\0')
     {
         print_errore_mix("minishell: ", cmd, " command not found", 127);
         return ;
     }    
-    path_env = ft_split(serch_in_env("PATH")->value, ':');
+    path_env = ft_split(search_in_env("PATH")->value, ':');
     i = 0;
     while (path_env[i])
     {
@@ -110,7 +110,7 @@ int command_execution(t_data *data, int size)
 {
 
     command_not_found(data);
-    printf("PATH: %s\n", serch_in_env("PATH")->value);
+    printf("PATH: %s\n", search_in_env("PATH")->value);
 
     if (check_slash_in_path(data->args[0]) == true)
         check_run_path_not_commande(data->args[0], data);
