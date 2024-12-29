@@ -6,15 +6,16 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/28 10:16:11 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/29 10:40:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /**
- * @brief This function expands the arguments and files in the command list
- * @brief It calls the ft_handle_expansions function to handle the expansions
+ * @brief This function expands envirement variables in a string
+ * @param str The string containing the envirement variable reference
+ * @return The expanded string
  */
 
 char *expand_env_var(char *str)
@@ -22,10 +23,10 @@ char *expand_env_var(char *str)
     //expand env var
     t_env *env;
 
-    // if (str[0] == '?')
-    // {
-    //     return ft_itoa(get_shell_state()->exit_status);
-    // }
+    if (str[0] == '?')
+    {
+        return ft_strdup("ft_itoa(get_shell_state()->exit_status)");
+    }
 
     env = search_in_env(str);
     if (!env || !env->value)
@@ -41,34 +42,33 @@ void ft_get_var_value(char *result, int *j, int *i, char *str)
     int len;
 
     k = 0;
-    while (str[*i] && (ft_isalnum(str[*i]) || str[*i] == '_' || str[*i] == '?'))
+    while (str[*i] && (isalnum(str[*i]) || str[*i] == '_' || str[*i] == '?'))
     {
-        var_name[k] = str[*i];
         k++;
         (*i)++;
         if (str[*i - 1] == '?')
             break;
     }
-    *i--;
-    if (k > 0)
-    {
-        expansion = expand_env_var(var_name);
-        len = ft_strlen(expansion);
-        ft_memcpy(&result[*j], expansion, len);
-        *j += len;
-        free(expansion);
-    }
-    
+    var_name = mallocc(sizeof(char) * (k + 1));
+    strncpy(var_name, &str[*i - k], k);
+    var_name[k] = '\0';
+    expansion = expand_env_var(var_name);
+    len = ft_strlen(expansion);
+    memcpy(&result[*j], expansion, len);
+    *j += len;
+    free(expansion);
+    free(var_name);
+    (*i)--;
 }
 
 char *ft_handle_expansions(char *str)
 {
     char *result;         // Buffer to store the expanded string
-    int i;               // Index for input string
-    int j;               // Index for result string
-    int quote;           // Keeps track of quote state (0 if not in quotes)
+    int i;
+    int j;
+    int quote;
 
-    result = mallocc(sizeof(char) * (ft_strlen(str) *2));  // Allocate double size for worst case
+    result = mallocc(sizeof(char) * (ft_strlen(str) *2) + 1);
     i = 0;
     j = 0;
     quote = 0;
@@ -80,24 +80,27 @@ char *ft_handle_expansions(char *str)
         {
             quote = str[i];
             result[j++] = str[i++];
-            continue;
         }else if (str[i] == quote)                         // Closing quote
         {
             quote = 0;
             result[j++] = str[i++];
-            continue;
         }
         // Handle environment variable expansion
-        if (str[i] == '$' && quote != '\'')                // Don't expand within single quotes
+        if (str[i] == '$' && (quote != '\''))                // Don't expand within single quotes
         {
             i++;
-            if (str[i] == '?' || ft_isalnum(str[i]) || str[i] == '_')
+            if (str[i] == '?' || isalnum(str[i]) || str[i] == '_')
                 ft_get_var_value(result, &j, &i, str);     // Expand variable
             else
+            {
                 result[j++] = '$';                         // Keep $ if not a valid variable
-        } else
-            result[j++] = str[i++];                    // Copy
-        i++;
+                if (str[i])
+                    result[j++] = str[i];
+            }
+            i++;                     // Keep $ if not a valid variable
+        }
+        else
+            result[j++] = str[i++];             
     }
     result[j] = '\0';                                    
     return result;
@@ -131,6 +134,7 @@ void ft_expand(t_data *cmd_list)
                 free(files->file);
                 files->file = expanded;
             }
+            files = files->next;
         }
         
         current = current->next;
