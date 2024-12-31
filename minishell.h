@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/29 03:58:22 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/31 09:57:43 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ typedef struct s_shell
 	char	*pwd;
 } t_shell;
 
+typedef struct s_helper
+{
+	int i;
+	int j;
+	int quote;
+	char *result;
+} t_helper;
+
 // utils
 unsigned int	ft_strlen(const char *s1);
 char    *ft_strdup(const char *s1);
@@ -89,6 +97,7 @@ void parse_redirections(t_data *cmd_list);
 t_data	*ft_errors(t_data *cmd_list);
 t_shell *get_shell_state(void);
 // expand
+void ft_get_var_value(t_helper *h, char *str);
 void ft_expand(t_data *cmd_list);
 
 // env
