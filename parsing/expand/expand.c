@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/31 09:49:25 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/31 15:02:32 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,68 +17,6 @@
  * @param str The string containing the envirement variable reference
  * @return The expanded string
  */
-
-char *expand_env_var(char *str)
-{
-    t_env *env;
-
-    if (str[0] == '?')
-        return ft_strdup("exit_status");
-
-    env = search_in_env(str);
-    if (!env || !env->value)
-        return ft_strdup("");
-    return ft_strdup(env->value);
-}
-
-void ft_get_var_value(char *result, int *j, int *i, char *str)
-{
-    int k = 0;
-    char *var_name;
-    char *expansion;
-    int len;
-
-    if (str[*i] == '?')
-    {
-        var_name = ft_strdup("?");
-        (*i)++;
-    }
-    else if (isdigit(str[*i]))
-    {
-        var_name = malloc(sizeof(char) * 2);
-        if (!var_name)
-            return;
-        var_name[0] = str[*i];
-        var_name[1] = '\0';
-        (*i)++;
-    }
-    else
-    {
-        // Handle valid variable names (letters, underscores, etc.)
-        while (str[*i] && (isalnum(str[*i]) || str[*i] == '_'))
-        {
-            k++;
-            (*i)++;
-        }
-
-        var_name = malloc(sizeof(char) * (k + 1));
-        if (!var_name)
-            return;
-
-        strncpy(var_name, &str[*i - k], k);
-        var_name[k] = '\0';
-    }
-
-    expansion = expand_env_var(var_name);
-    len = ft_strlen(expansion);
-
-    memcpy(&result[*j], expansion, len);
-    *j += len;
-    free(expansion);
-    free(var_name);
-    (*i)--; // Adjust index to point to the character after the variable name
-}
-
 
 void ft_init_helper(t_helper *helper, char *str)
 {
@@ -111,7 +49,7 @@ void ft_dollar_sign(t_helper *h, char *str)
 {
     h->i++;
     if (str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_')
-        ft_get_var_value(h->result, &h->j, &h->i, str);
+        ft_get_var_value(h, str);
     else
     {
         h->result[h->j++] = '$';
