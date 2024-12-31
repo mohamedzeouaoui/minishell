@@ -10,10 +10,9 @@ PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_erro
 			./parsing/expand/expand_helper.c 
 EXECUTION = ./execution/execution.c ./execution/builtins/builtins.c ./execution/builtins/ft_echo.c \
 	./execution/builtins/ft_cd.c ./execution/exit_file.c ./execution/builtins/ft_pwd.c \
-	./execution/builtins/ft_env.c ./execution/builtins/ft_unset.c ./execution/builtins/ft_exit.c 
-CFILES = mytest.c  ${PARSING} ${UTILS} ${EXECUTION} ${ENV}
 	./execution/builtins/ft_env.c ./execution/builtins/ft_unset.c ./execution/builtins/ft_exit.c \
-	./execution/file_redirection.c ./execution/pipe_fork_dup.c ./execution/utils_exec.c
+	./execution/file_redirection.c ./execution/pipe_fork_dup.c ./execution/utils_exec.c 
+CFILES = test.c  ${PARSING} ${UTILS} ${EXECUTION} ${ENV}
 OFILES = ${CFILES:.c=.o}
 NAME = minishell
 
