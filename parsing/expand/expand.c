@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/31 05:57:20 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/31 09:49:25 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,53 +79,65 @@ void ft_get_var_value(char *result, int *j, int *i, char *str)
     (*i)--; // Adjust index to point to the character after the variable name
 }
 
-char *ft_handle_expansions(char *str)
-{
-    char *result; // Buffer to store the expanded string
-    int i;
-    int j;
-    int quote;
 
-    result = mallocc(sizeof(char) * (ft_strlen(str) * 2) + 1);
-    i = 0;
-    j = 0;
-    quote = 0;
-    while (str[i])
+void ft_init_helper(t_helper *helper, char *str)
+{
+    helper->i = 0;
+    helper->j = 0;
+    helper->quote = 0;
+    helper->result = mallocc(sizeof(char) * (ft_strlen(str) + 1));
+    if (!helper->result)
+        return;
+}
+void ft_handle_quotes(t_helper *h, char *str)
+{
+    while (str[h->i] && (str[h->i] == '\'' || str[h->i] == '\"'))
     {
-        // Handle opening and closing quotes
-        while(str[i] && (str[i] == '\'' || str[i] == '\"'))
+        if ((str[h->i] == '\'' || str[h->i] == '\"') && !h->quote) // Opening quote
         {
-            if ((str[i] == '\'' || str[i] == '\"') && !quote) // Opening quote
-            {
-                quote = str[i++];
-            }
-            else if (str[i] == quote) // Closing quote
-            {
-                quote = 0;
-                i++;
-            }
-            else
-                result[j++] = str[i++];
+            h->quote = str[h->i++];
         }
-        // Handle environment variable expansion
-        if (str[i] == '$' && (quote != '\'')) // Don't expand within single quotes
+        else if (str[h->i] == h->quote) // Closing quote
         {
-            i++;
-            if (str[i] == '?' || isalnum(str[i]) || str[i] == '_')
-                ft_get_var_value(result, &j, &i, str); // Expand variable
-            else
-            {
-                result[j++] = '$'; // Keep $ if not a valid variable
-                if (str[i])
-                    result[j++] = str[i];
-            }
-            i++; // Keep $ if not a valid variable
+            h->quote = 0;
+            h->i++;
         }
         else
-            result[j++] = str[i++];
+            h->result[h->j++] = str[h->i++];
     }
-    result[j] = '\0';
-    return result;
+}
+
+void ft_dollar_sign(t_helper *h, char *str)
+{
+    h->i++;
+    if (str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_')
+        ft_get_var_value(h->result, &h->j, &h->i, str);
+    else
+    {
+        h->result[h->j++] = '$';
+        if (str[h->i])
+            h->result[h->j++] = str[h->i];
+    }
+    h->i++;
+}
+
+char *ft_handle_expansions(char *str)
+{
+    t_helper *h;
+
+    h = mallocc(sizeof(t_helper));
+    ft_init_helper(h, str);
+    while (str[h->i])
+    {
+        ft_handle_quotes(h, str);
+        // Handle environment variable expansion
+        if (str[h->i] == '$' && (h->quote != '\'')) // Don't expand within single quotes
+            ft_dollar_sign(h, str);
+        else
+            h->result[h->j++] = str[h->i++];
+    }
+    h->result[h->j] = '\0';
+    return h->result;
 }
 
 void ft_expand(t_data *cmd_list)
