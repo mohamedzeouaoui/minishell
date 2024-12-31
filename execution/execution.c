@@ -12,7 +12,6 @@
 
 #include "../minishell.h"
 
-
 void command_not_found(t_data *data)
 {
     if(data->args[0] == "..")
@@ -105,13 +104,9 @@ void check_in_env_path_cmd(char *cmd, t_data *data)
     print_errore_mix("minishell: ", cmd, " command not found", 127);
 }
 
-
 int command_execution(t_data *data, int size)
 {
-
     command_not_found(data);
-    printf("PATH: %s\n", search_in_env("PATH")->value);
-
     if (check_slash_in_path(data->args[0]) == true)
         check_run_path_not_commande(data->args[0], data);
     else
@@ -121,37 +116,36 @@ int command_execution(t_data *data, int size)
     return (0);
 }
 
-void run_command_in_child_process(t_data *data, int *id_child, int size, int *i)
-{
-    // int fd_pipe[2];
-    int fd_stdout;
 
-    // if (size > 1 && *i < size - 1)
-    // {
-    //     if (pipe(fd_pipe) == -1)
-    //         print_errore_exit("pipe_error", 1);
-    // }
-   int pid = fork();
-    // if ((id_child[*i] = fork()) == -1)
-    //     print_errore_exit("fork_error", 1);
-    // printf("parent\n,%d\n", id_child[*i]);
-    // close(fd_stdin);
-    // printf("child\n");
-    if (pid == 0)
+void run_command_in_child_process(t_data *data, int *id_child, int size, int i)
+{
+    int fd_pipe[2];
+    int fd_stdout_stored;
+
+    if (size > 1 && i < size - 1)
+    {
+        if (pipe(fd_pipe) == -1)
+            print_errore_exit("pipe_error\n", 1);
+    }
+    if ((id_child[i] = fork()) == -1)
+        print_errore_exit("fork_error\n", 1);
+    if (id_child[i] == 0)
     {
         if (check_built(data, 0) == 0)
         {
-
-            command_execution(data, size);
+            files_pipe(fd_pipe, fd_stdout_stored, size, (i));
+            if(data->files != NULL)
+                file_redirection(data->files, 0);
+            if (is_builtins(data) == 0)
+                command_execution(data, size);
         }
-        // if()ls  | ls | ls
-        // {
-        //     // hamdel file
-        // }       
         exit(get_shell_state()->exit_status);
     }
-    
-    // waitpid(id_child[*i], &get_shell_state()->exit_status, 0);
+    if (i != size - 1)
+        close(fd_pipe[p_inp]);
+    if (i > 0)
+        close(fd_pipe[p_outp]);
+    fd_stdout_stored = fd_pipe[p_outp];
 }
 
 void    ft_exec(t_data *data, int size)
@@ -163,24 +157,16 @@ void    ft_exec(t_data *data, int size)
 
     if (check_built(data, 1) == 1 && size == 1)
         return ;
+    id_child = (int *)mallocc(sizeof(int) * size);
     get_shell_state()->exit_status = 0;
-    // if(command_execution(data, size) == 1 && size == 1)
-    //     return ;
     i = 0;
     while (i < size && data != NULL)
     {
-        run_command_in_child_process(data, id_child, size, &i);
+        run_command_in_child_process(data, id_child, size, i);
         data = data->next;
         i++;
     }
-    // wait(NULL);
     int status;
     waitpid(-1, &status, 0);
-    // printf("status: %d\n", status);
-    // while (i < size)
-    // {
-    //     printf("wait:%d\n", id_child[i]);
-    //     waitpid(id_child[i], &get_shell_state()->exit_status, 0);
-    //     i++;
-    // }
+    
 }

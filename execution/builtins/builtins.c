@@ -52,16 +52,39 @@ void ft_builtins_run(t_data *data, int prosses)
     //     ft_export(data, &(get_shell_state()->exit_status));
 }
 
+int files_dup(int num)
+{
+    int file;
+
+    if (num == 0)
+    {
+        file = dup(STDIN_FILENO);
+        if(file == -1)
+            print_errore_exit("dup_error", 1);
+    }
+    if (num == 1)
+    {
+        file = dup(STDOUT_FILENO);
+        if(file == -1)
+            print_errore_exit("dup_error", 1);
+    }   
+    return (file);
+}
 
 int check_built(t_data *data, int prosses)
 {
+    int file[2];
+
+    file[0] = files_dup(0);
+    file[1] = files_dup(1);
+    // close(1);
     if (is_builtins(data) == 1)
-    {
         ft_builtins_run(data, prosses);
-    }
     else
         return (0);
     if (prosses == 0)
         exit(get_shell_state()->exit_status ); // should be exit with ft_exit_clean !!!!
+    dup2(file[0], STDIN_FILENO);
+    dup2(file[1], STDOUT_FILENO);
     return (1);
 }
