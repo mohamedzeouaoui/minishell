@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/06 17:15:04 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/31 09:57:43 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_files
 {
 	char			*redirection; 
 	char			*file;
-	//int heredoc_fd; //<-------
+	int heredoc_fd;
 	struct s_files	*next;
 }					t_files;
 
@@ -61,6 +61,14 @@ typedef struct s_shell
 	int		exit_status;
 	char	*pwd;
 } t_shell;
+
+typedef struct s_helper
+{
+	int i;
+	int j;
+	int quote;
+	char *result;
+} t_helper;
 
 // utils
 unsigned int	ft_strlen(const char *s1);
@@ -91,13 +99,15 @@ void parse_redirections(t_data *cmd_list);
 t_data	*ft_errors(t_data *cmd_list);
 t_shell *get_shell_state(void);
 // expand
+void ft_get_var_value(t_helper *h, char *str);
+void ft_expand(t_data *cmd_list);
 
 // env
 t_env *ft_env_new_node(char *k, char *v);
 char *ft_key(char *env, int *i) ;
 char *ft_value(char *env, int *i);
 void	ft_parse_env(char **env, t_shell *shell);
-t_env *serch_in_env(char *key);
+t_env *search_in_env(char *key);
 char **env_lst_to_tab(void);
 
 
