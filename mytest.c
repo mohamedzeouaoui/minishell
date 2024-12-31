@@ -70,7 +70,6 @@ int main(int ac, char **av, char **env)
 {
     t_data *cmd_list;
     char *input;
-
     t_shell *shell;
     
     shell = get_shell_state();
