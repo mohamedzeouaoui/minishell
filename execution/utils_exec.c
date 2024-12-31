@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 15:22:53 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/31 15:22:56 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2024/12/31 16:12:08 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ void check_in_env_path_cmd(char *cmd, t_data *data)
     int i;
     char *new_path;
 
-    if (serch_in_env("PATH") == NULL || serch_in_env("PATH")->value == NULL || serch_in_env("PATH")->value[0] == '\0')
+    if (search_in_env("PATH") == NULL || search_in_env("PATH")->value == NULL || search_in_env("PATH")->value[0] == '\0')
     {
         print_errore_mix("minishell: ", cmd, " command not found", 127);
         return ;
     }    
-    path_env = ft_split(serch_in_env("PATH")->value, ':');
+    path_env = ft_split(search_in_env("PATH")->value, ':');
     i = 0;
     while (path_env[i])
     {

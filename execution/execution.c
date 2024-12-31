@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:00:38 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/06 17:00:43 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2024/12/31 16:25:41 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+
+
+
+
+
+
 
 int command_execution(t_data *data, int size)
 {

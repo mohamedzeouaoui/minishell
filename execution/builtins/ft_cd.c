@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 16:50:07 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/06 16:50:12 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2024/12/29 03:56:21 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 void pwd_update(char *path)
 {
-    if (serch_in_env("PWD") != NULL)
+    if (search_in_env("PWD") != NULL)
     {
-        free(serch_in_env("PWD")->value);
-        serch_in_env("PWD")->value = ft_strdup_normal(path);
+        free(search_in_env("PWD")->value);
+        search_in_env("PWD")->value = ft_strdup_normal(path);
     }
     // if ()
     // {
@@ -62,23 +62,23 @@ int home_cd(void)
 {
     char *home;
     
-    if((serch_in_env("HOME")) == NULL || (serch_in_env("HOME")->value) == NULL)
+    if((search_in_env("HOME")) == NULL || (search_in_env("HOME")->value) == NULL)
     {
         print_errore("minishell: cd: HOME not set\n");
         return (1);
     }
     home = getcwd(NULL, 0);
-    if (home == NULL && chdir(serch_in_env("HOME")->value) == -1)
+    if (home == NULL && chdir(search_in_env("HOME")->value) == -1)
     {
-        print_errore_mix("minishell: cd: ", serch_in_env("HOME")->value,
+        print_errore_mix("minishell: cd: ", search_in_env("HOME")->value,
 			": No such file or directory\n", -1);
         return (1);
     }
-    else if (chdir(serch_in_env("HOME")->value) == -1 && serch_in_env("HOME")->value != NULL)
+    else if (chdir(search_in_env("HOME")->value) == -1 && search_in_env("HOME")->value != NULL)
     {
         free(home);
         print_errore("minishell: cd: ");
-        perror(serch_in_env("HOME")->value);
+        perror(search_in_env("HOME")->value);
         return (1);
     }
     //updtate pwd;
