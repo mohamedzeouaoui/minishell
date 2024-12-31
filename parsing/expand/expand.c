@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/29 14:58:38 by asodor           ###   ########.fr       */
+/*   Updated: 2024/12/31 05:57:20 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,19 @@ char *ft_handle_expansions(char *str)
     while (str[i])
     {
         // Handle opening and closing quotes
-        if ((str[i] == '\'' || str[i] == '\"') && !quote) // Opening quote
+        while(str[i] && (str[i] == '\'' || str[i] == '\"'))
         {
-            quote = str[i];
-            result[j++] = str[i++];
-        }
-        else if (str[i] == quote) // Closing quote
-        {
-            quote = 0;
-            result[j++] = str[i++];
+            if ((str[i] == '\'' || str[i] == '\"') && !quote) // Opening quote
+            {
+                quote = str[i++];
+            }
+            else if (str[i] == quote) // Closing quote
+            {
+                quote = 0;
+                i++;
+            }
+            else
+                result[j++] = str[i++];
         }
         // Handle environment variable expansion
         if (str[i] == '$' && (quote != '\'')) // Don't expand within single quotes
@@ -142,19 +146,6 @@ void ft_expand(t_data *cmd_list)
             current->args[i] = expanded;
             i++;
         }
-        // expand files
-        files = current->files;
-        while (files)
-        {
-            if (files->file)
-            {
-                expanded = ft_handle_expansions(files->file);
-                free(files->file);
-                files->file = expanded;
-            }
-            files = files->next;
-        }
-
         current = current->next;
     }
 }
