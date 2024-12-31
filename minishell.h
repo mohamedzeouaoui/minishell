@@ -18,6 +18,7 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+#include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -107,6 +108,13 @@ char **env_lst_to_tab(void);
 void ft_builtins_run(t_data *data, int prosses);
 int is_builtins(t_data *data);
 void    exit_clean(int exit_status);
+void files_pipe(int fd_pipe[2], int fd_stdout_stored, int size, int i);
+int command_execution(t_data *data, int size);
+void check_in_env_path_cmd(char *cmd, t_data *data);
+bool check_slash_in_path(char *path);
+int check_dirctory(char *path);
+void command_not_found(t_data *data);
+void check_run_path_not_commande(char *path, t_data *data);
 
 // builtins
 int ft_echo(t_data *data);
@@ -116,5 +124,12 @@ int ft_pwd(void);
 void pwd_intialize(void);
 void ft_exit(t_data *data, int prosses, int *exit_status);
 int ft_unset(t_data *data);
+
+//redirection
+int ft_dup2(int fd1, int fd2);
+int input_file_clear(t_files *file);
+int input_file_append(t_files *file);
+int file_redirection(t_files *file, int prosses);
+
 
 #endif

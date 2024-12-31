@@ -12,107 +12,9 @@
 
 #include "../minishell.h"
 
-
-void command_not_found(t_data *data)
-{
-    if(data->args[0] == "..")
-        print_errore_mix(data->args[0], " command not found", NULL, 127);
-    else if(data->args[0] == ".")
-        print_errore_mix(data->args[0], " command not found", NULL, 2);
-    else if(data->args[0] == "")
-        print_errore_mix(data->args[0], " command not found", NULL, 127);
-}
-bool check_slash_in_path(char *path)
-{
-    int i;
-
-    i = 0;
-    while (path[i])
-    {
-        if (path[i] == '/')
-            return (true);
-        i++;
-    }
-    return (false);
-}
-
-
-
-int check_dirctory(char *path)
-{
-    struct stat sb;
-
-    if (stat(path, &sb) == -1)
-    {
-        print_errore_mix("minishell: ", path, " no such file or directory", 127);
-        return (1);
-    }
-    if (S_ISDIR(sb.st_mode))
-    {
-        print_errore_mix("minishell: ", path, " is a directory", 126);
-        return (1);
-    }
-    return (0);
-}
-
-void check_run_path_not_commande(char *path, t_data *data)
-{
-    char *new_path;
-
-    if (path[0] == '/')
-        new_path = path;
-    else
-        new_path = ft_strjoin("./", path, ft_strlen(path));    
-    if (access( new_path, F_OK) == 0)
-    {
-        check_dirctory(new_path);
-        if (access(new_path, X_OK) == 0)
-        {
-            if (execve(new_path, data->args, env_lst_to_tab()) == -1)
-                print_errore_mix(" permission denied", NULL, NULL, 127);
-        }
-        else
-            print_errore_mix("minishell: ", path, " permission denied", 126);
-    }
-    else
-        print_errore_mix("minishell: ", path, ": No such file or directory\n" ,127);
-}
-
-void check_in_env_path_cmd(char *cmd, t_data *data)
-{
-    char **path_env;
-    int i;
-    char *new_path;
-
-    if (serch_in_env("PATH") == NULL || serch_in_env("PATH")->value == NULL || serch_in_env("PATH")->value[0] == '\0')
-    {
-        print_errore_mix("minishell: ", cmd, " command not found", 127);
-        return ;
-    }    
-    path_env = ft_split(serch_in_env("PATH")->value, ':');
-    i = 0;
-    while (path_env[i])
-    {
-        new_path = ft_strjoin(ft_strjoin(path_env[i], "/", 0), cmd, ft_strlen(cmd));
-        if (access(new_path, F_OK) == 0)
-        {
-            check_dirctory(new_path);
-            if (execve(new_path, data->args, env_lst_to_tab()) == -1)
-                print_errore_mix(" permission denied", NULL, NULL, 127);
-        }
-        free(path_env[i]);
-        //ft_free(new_path);
-        i++;
-    }
-    print_errore_mix("minishell: ", cmd, " command not found", 127);
-}
-
-
 int command_execution(t_data *data, int size)
 {
-
     command_not_found(data);
-
     if (check_slash_in_path(data->args[0]) == true)
         check_run_path_not_commande(data->args[0], data);
     else
@@ -121,63 +23,6 @@ int command_execution(t_data *data, int size)
     //ft_exit_clean(get_shell_state()->exit_status);
     return (0);
 }
-int ft_dup2(int fd1, int fd2)
-{
-    if (dup2(fd1, fd2) == -1)
-        print_errore_exit("dup2_error\n", 1);
-    return (0);
-}
-
-void files_pipe(int fd_pipe[2], int fd_stdout_stored, int size, int i)
-{
-    if (size <= 1)
-        return ;    
-    if (i == 0)
-    {
-        ft_dup2(fd_pipe[p_inp], 1);
-        close(fd_pipe[p_inp]); // ft_close
-        close(fd_pipe[p_outp]); // ft_close
-    }
-    if (i > 0 && i < size - 1)
-    {
-        ft_dup2(fd_stdout_stored, 0);
-        close(fd_stdout_stored);
-        ft_dup2(fd_pipe[p_inp], 1);
-        close(fd_pipe[p_inp]);
-        close(fd_pipe[p_outp]);
-    }
-    if (i == size - 1)
-    {
-        ft_dup2(fd_stdout_stored, 0);
-        close(fd_stdout_stored);
-    }
-}
-
-// void file_redirection(t_files *file, int prosses)
-// {
-//     int fd;
-//     int i;
-
-//     i = 0;
-    
-//     while (file != NULL)
-//     {
-//         if (ft_strncmp(file->redirection, ">", 1) == 0 || ft_strncmp(file->redirection, ">>", 2) == 0)
-//         {
-
-//         }
-//         else if (ft_strncmp(file->redirection, "<", 1) == 0 || ft_strncmp(file->redirection, "<<", 2) == 0)
-//         {
-//             fd = open(file->file, O_RDONLY);
-//             if (fd == -1)
-//                 print_errore_exit("open_error\n", 1);
-//             ft_dup2(fd, 0);
-//         }
-        
-//         file = file->next;
-//     }
-    
-// }
 
 
 void run_command_in_child_process(t_data *data, int *id_child, int size, int i)
@@ -197,8 +42,8 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i)
         if (check_built(data, 0) == 0)
         {
             files_pipe(fd_pipe, fd_stdout_stored, size, (i));
-            // if(data->files != NULL)
-            //     file_redirection(data->files, 0);
+            if(data->files != NULL)
+                file_redirection(data->files, 0);
             if (is_builtins(data) == 0)
                 command_execution(data, size);
         }
