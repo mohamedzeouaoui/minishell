@@ -12,13 +12,6 @@
 
 #include "../minishell.h"
 
-
-
-
-
-
-
-
 int command_execution(t_data *data, int size)
 {
     command_not_found(data);

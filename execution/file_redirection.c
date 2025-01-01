@@ -58,9 +58,9 @@ int file_redirection(t_files *file, int prosses)
         return (1);    
     while (file != NULL)
     {
-        if (ft_strncmp(file->redirection, ">", 1) == 0)
+        if (ft_strncmp(file->redirection, ">", 2) == 0)
             exit_status = input_file_clear(file);
-        else if (ft_strncmp(file->redirection, ">>", 2) == 0)
+        else if (ft_strncmp(file->redirection, ">>", 3) == 0)
             exit_status = input_file_append(file);
         // else if (ft_strncmp(file->redirection, "<", 1) == 0 )
         //     //output_file(file->file);
