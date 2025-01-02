@@ -23,6 +23,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
+
+#include <assert.h>
+
 # define p_inp 1
 # define p_outp 0
 
