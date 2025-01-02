@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/02 10:09:22 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/02 14:01:06 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,24 @@ void ft_init_helper(t_helper *helper, char *str)
     if (!helper->result)
         return;
 }
+void ft_handle_quotes(t_helper *h, char *str);
+
+void ft_dollar_sign(t_helper *h, char *str)
+{
+    h->i++;
+    if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_'))
+        ft_get_var_value(h, str);
+    else
+    {
+        ft_handle_quotes(h, str);
+        if (str[h->i])
+            h->result[h->j++] = str[h->i++];
+    }
+}
+
 void ft_handle_quotes(t_helper *h, char *str)
 {
-    while (str[h->i] && (str[h->i] == '\'' || str[h->i] == '\"'))
+    while (str[h->i])
     {
         if ((str[h->i] == '\'' || str[h->i] == '\"') && !h->quote) // Opening quote
         {
@@ -41,36 +56,14 @@ void ft_handle_quotes(t_helper *h, char *str)
             h->i++;
         }
         else
-            h->result[h->j++] = str[h->i++];
+        {
+            if (str[h->i] == '$' && (h->quote != '\'')) // Don't expand within single quotes
+                ft_dollar_sign(h, str);
+            else
+                h->result[h->j++] = str[h->i];
+            h->i++;
+        }
     }
-}
-
-
-void ft_dollar_sign(t_helper *h, char *str)
-{
-    bool need_to_expand = false;
-    
-    h->i++;
-    if (str[h->i] == '\'' || str[h->i] == '\"')
-    {
-        ft_handle_quotes(h, str);
-    }else
-        need_to_expand = true;
-    if (str[h->i] == '$' && (h->quote != '\''))
-    {
-        need_to_expand = true;
-        ft_dollar_sign(h, str);
-    }
-    else if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_') && need_to_expand)
-        ft_get_var_value(h, str);
-    else
-    {
-        ft_handle_quotes(h, str);
-        if (str[h->i])
-            h->result[h->j++] = str[h->i];
-    }
-    ft_handle_quotes(h, str);
-    h->i++;
 }
 
 char *ft_handle_expansions(char *str)
@@ -79,15 +72,7 @@ char *ft_handle_expansions(char *str)
 
     h = mallocc(sizeof(t_helper));
     ft_init_helper(h, str);
-    while (str[h->i])
-    {
-        ft_handle_quotes(h, str);
-        // Handle environment variable expansion
-        if (str[h->i] == '$' && (h->quote != '\'')) // Don't expand within single quotes
-            ft_dollar_sign(h, str);
-        else
-            h->result[h->j++] = str[h->i++];
-    }
+    ft_handle_quotes(h, str);
     h->result[h->j] = '\0';
     return h->result;
 }
