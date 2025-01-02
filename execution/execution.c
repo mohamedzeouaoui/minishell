@@ -24,12 +24,10 @@ int command_execution(t_data *data, int size)
     return (0);
 }
 
-// 
 void run_command_in_child_process(t_data *data, int *id_child, int size, int i, int *fd_stdout_stored, int *last_process_id)
 {
     int fd_pipe[2];
-    // static int fd_stdout_stored;
-// 
+
     if (size > 1 && i != size - 1)
     {
         if (pipe(fd_pipe) == -1)
@@ -39,7 +37,6 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i, 
         print_errore_exit("fork_error\n", 1);
     if (i == size - 1 && id_child[i] != 0)
         (*last_process_id) = id_child[i];
-    // printf("%d\n", id_child[i]);
     if (id_child[i] == 0)
     {
         files_pipe(fd_pipe, (*fd_stdout_stored), size, i);
