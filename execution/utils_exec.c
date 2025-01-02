@@ -71,7 +71,7 @@ void check_in_env_path_cmd(char *cmd, t_data *data)
         //ft_free(new_path);
         i++;
     }
-
+    get_shell_state()->exit_status = 127;
     print_errore_mix("minishell: ", cmd, " command not found", 127);
 }
 
