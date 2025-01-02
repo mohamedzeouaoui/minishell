@@ -34,8 +34,13 @@ int is_builtins(t_data *data)
 
 void ft_builtins_run(t_data *data, int prosses)
 {
-    //handel files here 
+    int eta;
     
+    eta = 0;
+    if (data->files != NULL && prosses == 1)
+        eta = file_redirection(data->files, prosses);
+    if (eta == 1)
+        get_shell_state()->exit_status = 1;    
     if (ft_strncmp(data->args[0], "echo", 5) == 0)
         get_shell_state()->exit_status = ft_echo(data);
     else if (ft_strncmp(data->args[0], "cd", 3) == 0)
@@ -77,14 +82,23 @@ int check_built(t_data *data, int prosses)
 
     file[0] = files_dup(0);
     file[1] = files_dup(1);
-    // close(1);
+    if ((data == NULL || *(data->args) == NULL))
+    {
+        if (data->files != NULL && prosses == 1)
+        {
+            get_shell_state()->exit_status = file_redirection(data->files, prosses);
+            ft_dup2(file[0], 0);
+            ft_dup2(file[1], 1);
+            return (1);
+        }        
+    }
     if (is_builtins(data) == 1)
         ft_builtins_run(data, prosses);
     else
         return (0);
     if (prosses == 0)
         exit(get_shell_state()->exit_status ); // should be exit with ft_exit_clean !!!!
-    dup2(file[0], STDIN_FILENO);
-    dup2(file[1], STDOUT_FILENO);
+    ft_dup2(file[0], 0);
+    ft_dup2(file[1], 1);
     return (1);
 }
