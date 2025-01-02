@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/31 15:02:32 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/02 10:09:22 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,31 @@ void ft_handle_quotes(t_helper *h, char *str)
     }
 }
 
+
 void ft_dollar_sign(t_helper *h, char *str)
 {
+    bool need_to_expand = false;
+    
     h->i++;
-    if (str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_')
+    if (str[h->i] == '\'' || str[h->i] == '\"')
+    {
+        ft_handle_quotes(h, str);
+    }else
+        need_to_expand = true;
+    if (str[h->i] == '$' && (h->quote != '\''))
+    {
+        need_to_expand = true;
+        ft_dollar_sign(h, str);
+    }
+    else if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_') && need_to_expand)
         ft_get_var_value(h, str);
     else
     {
-        h->result[h->j++] = '$';
+        ft_handle_quotes(h, str);
         if (str[h->i])
             h->result[h->j++] = str[h->i];
     }
+    ft_handle_quotes(h, str);
     h->i++;
 }
 
