@@ -94,6 +94,7 @@ int main(int ac, char **av, char **env)
     while (1)
     {
         // Get input from user
+        // sleep(1);
         input = readline("minishell-test> ");
         if (!input)
             break;
