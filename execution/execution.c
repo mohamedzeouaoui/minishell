@@ -54,9 +54,6 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i, 
         close(*fd_stdout_stored);
     (*fd_stdout_stored) = fd_pipe[p_outp];
 }
-// 
-
-
 
 void    ft_exec(t_data *data, int size)
 {
