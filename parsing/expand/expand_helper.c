@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 07:12:16 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/31 14:57:39 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/02 18:02:26 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ char *get_var_name(t_helper *h, char *str)
     int k = 0;
     char *var_name;
 
-    if (str[h->i] == '?')
+    if (str[h->i] == '_')
+    {
+        var_name = ft_strdup("_");
+        h->i++;
+    }
+    else if (str[h->i] == '?')
     {
         var_name = ft_strdup("?");
         h->i++;
@@ -69,6 +74,7 @@ void ft_get_var_value(t_helper *h, char *str)
     char *expansion;
 
     var_name = get_var_name(h, str);
+    
     if (!var_name)
         return;
     expansion = expand_env_var(var_name);
