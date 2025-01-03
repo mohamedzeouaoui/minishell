@@ -4,7 +4,7 @@ RM = rm -rf
 UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c ./utils/ft_iswhitespace.c \
 	./utils/ft_lstsize.c ./utils/ft_lst.c ./utils/ft_strdup.c ./utils/ft_strjoin.c ./utils/ft_strlen.c \
 	./utils/ft_strncmp.c ./utils/ft_substr.c  ./utils/ft_print.c ./utils/print_errore.c ./utils/ft_putstr_fd.c \
-	./utils/ft_split.c
+	./utils/ft_split.c ./utils/ft_itoa.c
 ENV = ./env/env.c ./env/env_utils.c ./env/ft_parse_env.c ./env/env_export.c 
 PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_error.c ./parsing/expand/expand.c \
 			./parsing/expand/expand_helper.c 
