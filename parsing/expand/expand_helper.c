@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 07:12:16 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/02 18:02:26 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 00:22:12 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char *expand_env_var(char *str)
     t_env *env;
 
     if (str[0] == '?')
-        return ft_strdup("exit_status");
+        return ft_itoa(get_shell_state()->exit_status);
 
     env = search_in_env(str);
     if (!env || !env->value)
