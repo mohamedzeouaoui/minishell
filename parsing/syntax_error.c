@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/26 19:12:22 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 00:29:08 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,8 @@ t_data	*ft_red_error(t_data *cmd_list)
 t_data	*ft_pipe_error(t_data *cmd_list)
 {
 	t_data	*curr;
-	t_shell	*shell;
 
 	curr = cmd_list;
-	shell = get_shell_state();
 	while (curr)
 	{
 		if (curr->next != NULL)
@@ -53,7 +51,7 @@ t_data	*ft_pipe_error(t_data *cmd_list)
 			if ((curr->args == NULL && curr->files == NULL)
 				|| (curr->next->args == NULL && curr->next->files == NULL))
 			{
-				shell->exit_status = 2;
+				get_shell_state()->exit_status = 2;
 				return (ft_print_err("syntax error near unexpected token `|'\n")
 					, NULL);
 			}
@@ -65,15 +63,12 @@ t_data	*ft_pipe_error(t_data *cmd_list)
 
 t_data	*ft_errors(t_data *cmd_list)
 {
-	t_shell	*shell;
-
-	shell = get_shell_state();
 	// if (!ft_her_error(cmd_list))
 	// 	return (NULL);
 	if (!ft_red_error(cmd_list) || !ft_pipe_error(cmd_list))
 	{
 		//check for file!!!
-		shell->exit_status = 2;
+		get_shell_state()->exit_status = 2;
 		return (NULL);
 	}
 	return (cmd_list);
