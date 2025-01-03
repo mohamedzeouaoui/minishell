@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/30 23:32:25 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 00:35:42 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ t_data *tokenize_input(char *input)
     int     curr_pos;
     t_data  *cmd_list;
     t_data  *new_cmd;
-    t_shell *shell;
     
     curr_pos = 0;
     cmd_list = NULL;
@@ -157,8 +156,7 @@ t_data *tokenize_input(char *input)
     ft_expand(cmd_list);
     if (cmd_list)
     {
-        shell = get_shell_state();
-        shell->exit_status = 0;
+        get_shell_state()->exit_status = 0;
         // need to set last argument
     }
     return (cmd_list);
