@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 10:02:01 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 13:48:49 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,81 @@ void ft_handle_quotes(t_helper *h, char *str)
     }
 }
 // Change return type to char**
-char **ft_handle_expansions(char *str)
+
+char **ft_handle_expansions(char *str, int flag)
 {
     t_helper *h;
     char **result_arr;
     int i;
-    
-    h = mallocc(sizeof(t_helper));
+
+    h = malloc(sizeof(t_helper));  // Fix typo: mallocc -> malloc
+    if (!h)
+        return NULL;  // Handle allocation failure
+
     ft_init_helper(h, str);
     ft_handle_quotes(h, str);
     h->result[h->j] = '\0';
-    
-    result_arr = ft_split(h->result, ' ');
+
+    if (flag == 1)
+    {
+        result_arr = ft_split(h->result, ' ');
+        free(h);  // Free the helper struct, h->result is part of the split
+    }
+    else
+    {
+        result_arr = malloc(2 * sizeof(char*));  // Allocate space for two pointers
+        if (!result_arr)
+        {
+            free(h);  // Free the helper struct if allocation fails
+            return NULL;
+        }
+        result_arr[0] = h->result;
+        result_arr[1] = NULL;
+        free(h);  // Free the helper struct, h->result is in result_arr
+    }
     return result_arr;
+}
+void ft_expand_args(t_data *current)
+{
+    int i;
+    int j;
+    char **expanded_args;
+    char **new_args;
+    
+    i = 0;
+    new_args = NULL;
+    while (current->args && current->args[i])
+    {
+        expanded_args = ft_handle_expansions(current->args[i++], 1);
+        if (expanded_args && *expanded_args)
+        {
+            j = 0;
+            while (expanded_args[j])
+                new_args = ft_cmd_join(new_args, expanded_args[j++]);
+        }
+        // Don't free expanded_args here since ft_cmd_join handles the memory
+    }
+    //ft_free_array(current->args);  // Free old args only
+    current->args = new_args;
+}
+
+void ft_expand_files(t_files *files)
+{
+    t_files *current;
+    char **new_file;
+    
+    current = files;
+    while (current && current->file)
+    {
+        new_file = ft_handle_expansions(current->file, 0);
+        if (new_file && *new_file)
+        {
+            free(current->file);  // Free old file name
+            current->file = new_file[0];  // Take ownership of first string
+            free(new_file);  // Only free the array, not its contents
+        }
+        current = current->next;
+    }
 }
 
 void ft_expand(t_data *cmd_list)
@@ -91,26 +153,13 @@ void ft_expand(t_data *cmd_list)
     t_data *current;
     t_files *files;
     int i;
-    int j;
     char **expanded_args;
-    char **new_args;
 
     current = cmd_list;
     while (current)
     {
-        i = 0;
-        new_args = NULL;
-        while (current->args && current->args[i])
-        {
-            expanded_args = ft_handle_expansions(current->args[i++]);
-            if (expanded_args && *expanded_args)
-            {
-                j = 0;
-                while (expanded_args[j])
-                    new_args = ft_cmd_join(new_args, expanded_args[j++]);
-            }
-        }
-        current->args = new_args;
+        ft_expand_args(current);
+        ft_expand_files(current->files);
         current = current->next;
     }
 }
