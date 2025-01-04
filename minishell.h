@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 20:50:13 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 20:52:00 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_helper
 	int j;
 	int quote;
 	char *result;
+	bool from_env;
 } t_helper;
 
 // utils
