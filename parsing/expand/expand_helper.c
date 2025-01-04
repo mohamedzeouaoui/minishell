@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 07:12:16 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 00:22:12 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 06:40:51 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void ft_get_var_value(t_helper *h, char *str)
     {
         free(var_name);
         return;
-    }
+    }else
+        h->from_env = 1;
     copy_expansion(h, expansion);
     free(expansion);
     free(var_name);
