@@ -46,6 +46,22 @@ int input_file_append(t_files *file)
     close(fd);
     return (0);
 }
+int output_file(char *file)
+{
+    int fd;
+
+    fd = open(file, O_RDONLY);
+    if (fd == -1)
+    {
+        // print_errore("minishell: ");
+        print_errore("minishell: ");
+        perror(file);
+        exit (1); //ft_exit_clean(1);
+    }
+    ft_dup2(fd, 0);
+    close(fd);
+    return (0);
+}
 
 int file_redirection(t_files *file, int prosses)
 {
@@ -58,12 +74,12 @@ int file_redirection(t_files *file, int prosses)
         return (1);    
     while (file != NULL)
     {
-        if (ft_strncmp(file->redirection, ">", 1) == 0)
+        if (ft_strncmp(file->redirection, ">", 2) == 0)
             exit_status = input_file_clear(file);
-        else if (ft_strncmp(file->redirection, ">>", 2) == 0)
+        else if (ft_strncmp(file->redirection, ">>", 3) == 0)
             exit_status = input_file_append(file);
-        // else if (ft_strncmp(file->redirection, "<", 1) == 0 )
-        //     //output_file(file->file);
+        else if (ft_strncmp(file->redirection, "<", 1) == 0 )
+            output_file(file->file);
         // else if (ft_strncmp(file->redirection, "<<", 2) == 0)
         //     //heredoc
         if (exit_status == 1)

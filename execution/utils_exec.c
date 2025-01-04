@@ -27,13 +27,22 @@ void check_run_path_not_commande(char *path, t_data *data)
         {
             if (execve(new_path, data->args, env_lst_to_tab()) == -1)
                 print_errore_mix(" permission denied", NULL, NULL, 127);
+            exit(get_shell_state()->exit_status);
         }
         else
             print_errore_mix("minishell: ", path, " permission denied", 126);
     }
     else
+    {
+
         print_errore_mix("minishell: ", path, ": No such file or directory\n" ,127);
+    }
 }
+// void exe_ve(t_data *data, char *new_path)
+// {
+//     if (execve(new_path, data->args, env_lst_to_tab()) == -1)
+//         print_errore_mix(" permission denied", NULL, NULL, 127);
+// }
 
 void check_in_env_path_cmd(char *cmd, t_data *data)
 {
@@ -56,11 +65,13 @@ void check_in_env_path_cmd(char *cmd, t_data *data)
             check_dirctory(new_path);
             if (execve(new_path, data->args, env_lst_to_tab()) == -1)
                 print_errore_mix(" permission denied", NULL, NULL, 127);
+            exit(get_shell_state()->exit_status);
         }
         free(path_env[i]);
         //ft_free(new_path);
         i++;
     }
+    get_shell_state()->exit_status = 127;
     print_errore_mix("minishell: ", cmd, " command not found", 127);
 }
 
@@ -84,6 +95,8 @@ int check_dirctory(char *path)
 
     if (stat(path, &sb) == -1)
     {
+        printf("path llllllllllllllll]\n ");
+
         print_errore_mix("minishell: ", path, " no such file or directory", 127);
         return (1);
     }

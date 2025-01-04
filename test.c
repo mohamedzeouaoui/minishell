@@ -94,6 +94,7 @@ int main(int ac, char **av, char **env)
     while (1)
     {
         // Get input from user
+        // sleep(1);
         input = readline("minishell-test> ");
         if (!input)
             break;
@@ -110,8 +111,8 @@ int main(int ac, char **av, char **env)
             printf("Error: Command list is empty\n");
         int cmd_num = 0;
 
-        while (current)
-        {
+        // while (current)
+        // {
             // printf("\n=== Command %d ===\n", ++cmd_num);
             
             // // Print arguments
@@ -134,10 +135,11 @@ int main(int ac, char **av, char **env)
             // }
 
             // // Execute the command
-            ft_exec(current, ft_lstsize(current));
+            if (current)
+                ft_exec(current, ft_lstsize(current));
             
-            current = current->next;
-        }
+        //     current = current->next;
+        // }
         
         // Clean up
         // free_command_list(cmd_list);
