@@ -19,10 +19,10 @@ NAME = minishell
 all : ${NAME}
 
 ${NAME} : ${OFILES}
-	${CC} ${CFLAGS} ${OFILES} -lreadline -o ${NAME}
+	${CC} ${CFLAGS} -g3 ${OFILES} -lreadline -o ${NAME}
 
 %.o: %.c
-	${CC} -c ${CFLAGS} $< -o $@
+	${CC} -c -g3 ${CFLAGS} $< -o $@
 
 clean :
 	${RM} ${OFILES}
