@@ -7,7 +7,7 @@ UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c .
 	./utils/ft_split.c ./utils/ft_itoa.c
 ENV = ./env/env.c ./env/env_utils.c ./env/ft_parse_env.c ./env/env_export.c 
 PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_error.c ./parsing/expand/expand.c \
-			./parsing/expand/expand_helper.c 
+			./parsing/expand/expand_helper.c  ./parsing/expand/quotes.c
 EXECUTION = ./execution/execution.c ./execution/builtins/builtins.c ./execution/builtins/ft_echo.c \
 	./execution/builtins/ft_cd.c ./execution/exit_file.c ./execution/builtins/ft_pwd.c \
 	./execution/builtins/ft_env.c ./execution/builtins/ft_unset.c ./execution/builtins/ft_exit.c \
