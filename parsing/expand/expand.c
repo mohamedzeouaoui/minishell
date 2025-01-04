@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/02 17:51:42 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 10:02:01 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void ft_init_helper(t_helper *helper, char *str)
     helper->i = 0;
     helper->j = 0;
     helper->quote = 0;
+    helper->from_env = 0;
     helper->result = mallocc(sizeof(char) * (ft_strlen(str) + 1));
     if (!helper->result)
         return;
@@ -69,16 +70,20 @@ void ft_handle_quotes(t_helper *h, char *str)
         }
     }
 }
-
-char *ft_handle_expansions(char *str)
+// Change return type to char**
+char **ft_handle_expansions(char *str)
 {
     t_helper *h;
-
+    char **result_arr;
+    int i;
+    
     h = mallocc(sizeof(t_helper));
     ft_init_helper(h, str);
     ft_handle_quotes(h, str);
     h->result[h->j] = '\0';
-    return h->result;
+    
+    result_arr = ft_split(h->result, ' ');
+    return result_arr;
 }
 
 void ft_expand(t_data *cmd_list)
@@ -86,19 +91,26 @@ void ft_expand(t_data *cmd_list)
     t_data *current;
     t_files *files;
     int i;
-    char *expanded;
+    int j;
+    char **expanded_args;
+    char **new_args;
 
     current = cmd_list;
     while (current)
     {
         i = 0;
+        new_args = NULL;
         while (current->args && current->args[i])
         {
-            expanded = ft_handle_expansions(current->args[i]);
-            free(current->args[i]);
-            current->args[i] = expanded;
-            i++;
+            expanded_args = ft_handle_expansions(current->args[i++]);
+            if (expanded_args && *expanded_args)
+            {
+                j = 0;
+                while (expanded_args[j])
+                    new_args = ft_cmd_join(new_args, expanded_args[j++]);
+            }
         }
+        current->args = new_args;
         current = current->next;
     }
 }
