@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 07:12:16 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 06:40:51 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 18:36:40 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,21 @@ void ft_get_var_value(t_helper *h, char *str)
     free(var_name);
     // Adjust index to point to the character after the variable name
     h->i--;
+}
+
+void ft_dollar_sign(t_helper *h, char *str)
+{
+    h->i++;
+    if (str[h->i] == '\"' || str[h->i] == ' ' || str[h->i] == '$' || str[h->i] == '\0')
+    {
+        h->result[h->j++] = '$';
+    }
+    if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_'))
+        ft_get_var_value(h, str);
+    else
+    {
+        ft_handle_quotes(h, str);
+        if (str[h->i])
+            h->result[h->j++] = str[h->i++];
+    }
 }
