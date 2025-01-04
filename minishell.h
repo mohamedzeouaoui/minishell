@@ -93,6 +93,7 @@ int print_errore(char *error);
 int print_errore_mix(char *error, char *error2, char *error3, int exit_status);
 int print_errore_exit(char *error, int exit_status);
 char	**ft_split(char const *s, char c);
+int	ft_lstsize_env(t_env *lst);
 
 //----> set_last_arg
 
@@ -112,6 +113,7 @@ char *ft_value(char *env, int *i);
 void	ft_parse_env(char **env, t_shell *shell);
 t_env *search_in_env(char *key);
 char **env_lst_to_tab(void);
+char **export_env_sorted(void);
 
 
 // execution
@@ -137,6 +139,7 @@ int ft_pwd(void);
 void pwd_intialize(void);
 void ft_exit(t_data *data, int prosses, int *exit_status);
 int ft_unset(t_data *data);
+void    ft_export(t_data *data, int *exit_status);
 
 //redirection
 int ft_dup2(int fd1, int fd2);

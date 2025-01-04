@@ -26,3 +26,18 @@ int	ft_lstsize(t_data *lst)
 	}
 	return (i);
 }
+
+int	ft_lstsize_env(t_env *lst)
+{
+	int	i;
+
+	i = 0;
+	if (lst == NULL)
+		return (0);
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst->next;
+	}
+	return (i);
+}
