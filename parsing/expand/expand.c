@@ -6,17 +6,11 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 13:48:49 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/04 18:39:01 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-/**
- * @brief This function expands envirement variables in a string
- * @param str The string containing the envirement variable reference
- * @return The expanded string
- */
 
 void ft_init_helper(t_helper *helper, char *str)
 {
@@ -28,49 +22,6 @@ void ft_init_helper(t_helper *helper, char *str)
     if (!helper->result)
         return;
 }
-void ft_handle_quotes(t_helper *h, char *str);
-
-void ft_dollar_sign(t_helper *h, char *str)
-{
-    h->i++;
-    if (str[h->i] == '\"' || str[h->i] == ' ' || str[h->i] == '$' || str[h->i] == '\0')
-    {
-        h->result[h->j++] = '$';
-    }
-    if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_'))
-        ft_get_var_value(h, str);
-    else
-    {
-        ft_handle_quotes(h, str);
-        if (str[h->i])
-            h->result[h->j++] = str[h->i++];
-    }
-}
-
-void ft_handle_quotes(t_helper *h, char *str)
-{
-    while (str[h->i])
-    {
-        if ((str[h->i] == '\'' || str[h->i] == '\"') && !h->quote) // Opening quote
-        {
-            h->quote = str[h->i++];
-        }
-        else if (str[h->i] == h->quote) // Closing quote
-        {
-            h->quote = 0;
-            h->i++;
-        }
-        else
-        {
-            if (str[h->i] == '$' && (h->quote != '\'')) // Don't expand within single quotes
-                ft_dollar_sign(h, str);
-            else
-                h->result[h->j++] = str[h->i];
-            h->i++;
-        }
-    }
-}
-// Change return type to char**
 
 char **ft_handle_expansions(char *str, int flag)
 {
@@ -78,30 +29,20 @@ char **ft_handle_expansions(char *str, int flag)
     char **result_arr;
     int i;
 
-    h = malloc(sizeof(t_helper));  // Fix typo: mallocc -> malloc
+    h = malloc(sizeof(t_helper));
     if (!h)
-        return NULL;  // Handle allocation failure
-
+        return NULL;
     ft_init_helper(h, str);
     ft_handle_quotes(h, str);
     h->result[h->j] = '\0';
-
     if (flag == 1)
-    {
         result_arr = ft_split(h->result, ' ');
-        free(h);  // Free the helper struct, h->result is part of the split
-    }
     else
     {
-        result_arr = malloc(2 * sizeof(char*));  // Allocate space for two pointers
-        if (!result_arr)
-        {
-            free(h);  // Free the helper struct if allocation fails
-            return NULL;
-        }
+        result_arr = malloc(2 * sizeof(char*));
         result_arr[0] = h->result;
         result_arr[1] = NULL;
-        free(h);  // Free the helper struct, h->result is in result_arr
+        free(h);
     }
     return result_arr;
 }
@@ -141,7 +82,7 @@ void ft_expand_files(t_files *files)
         if (new_file && *new_file)
         {
             free(current->file);  // Free old file name
-            current->file = new_file[0];  // Take ownership of first string
+            current->file = new_file[0];
             free(new_file);  // Only free the array, not its contents
         }
         current = current->next;
