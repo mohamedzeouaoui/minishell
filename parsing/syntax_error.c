@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 00:29:08 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/05 20:30:44 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,42 @@ t_data	*ft_pipe_error(t_data *cmd_list)
 	return (cmd_list);
 }
 
+int ft_count_herdoc(t_data *cmd_list)
+{
+	t_data	*curr;
+	t_files	*tmp;
+	int		count;
+
+	count = 0;
+	curr = cmd_list;
+	while (curr)
+	{
+		tmp = curr->files;
+		while (tmp)
+		{
+			if (tmp->redirection && !ft_strncmp(tmp->redirection, "<<", 3))
+				count++;
+			tmp = tmp->next;
+		}
+		curr = curr->next;
+	}
+	return (count);
+}
+
 t_data	*ft_errors(t_data *cmd_list)
 {
-	// if (!ft_her_error(cmd_list))
-	// 	return (NULL);
-	if (!ft_red_error(cmd_list) || !ft_pipe_error(cmd_list))
+	int herdoc;
+
+	herdoc = ft_count_herdoc(cmd_list);
+	if (!ft_red_error(cmd_list) || !ft_pipe_error(cmd_list) || herdoc > 16)
 	{
 		//check for file!!!
 		get_shell_state()->exit_status = 2;
+		if (herdoc > 16)
+		{
+			ft_print_err("bash: maximum here-document count exceeded");
+			//exitiiiiiiiiiiiiiiiiiiiiiiiiit !!!
+		}
 		return (NULL);
 	}
 	return (cmd_list);
