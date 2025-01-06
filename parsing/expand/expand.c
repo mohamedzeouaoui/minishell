@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/05 20:42:49 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/06 12:38:03 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void ft_expand_files(t_files *files)
     current = files;
     while (current && current->file)
     {
-        new_file = ft_handle_expansions(current->file, 0);
+        if (!ft_strncmp(current->redirection, "<<", 3))
+            new_file = ft_remove_quotes(current->file);
+        else 
+            new_file = ft_handle_expansions(current->file, 0);
         if (new_file && *new_file)
         {
             free(current->file);  // Free old file name
