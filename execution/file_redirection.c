@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:44:31 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 19:04:09 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:05:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int input_file_clear(t_files *file)
 {
     int fd;
 
-    printf("file->file: %s\n", file->file);
     fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd == -1)
     {
@@ -63,14 +62,30 @@ int output_file(char *file)
     close(fd);
     return (0);
 }
+int heredoc_file(char *file)
+{
+    int fd;
+
+    fd = open(file, O_RDONLY);
+    if (fd == -1)
+    {
+        // print_errore("minishell: ");
+        print_errore("minishell: ");
+        perror(file);
+        exit (1); //ft_exit_clean(1);
+    }
+    ft_dup2(fd, p_outp);
+    close(fd);
+    return (0);
+}
 
 int file_redirection(t_files *file, int prosses)
 {
     int exit_status;
     int i;
-    int fdd;
-    
+
     i = 0;
+    
     if (file == NULL)
         return (1);    
     while (file != NULL)
@@ -81,15 +96,8 @@ int file_redirection(t_files *file, int prosses)
             exit_status = input_file_append(file);
         else if (ft_strncmp(file->redirection, "<", 1) == 0 )
             output_file(file->file);
-        
-        // else if (ft_strncmp(file->redirection, "<<", 2) == 0)
-        // { 
-        //    open(file->file, O_RDONLY);
-        //     // store the file descriptor in the file struct
-        //     ft_dup2(fdd, 0);
-        //     close(fdd);
-        // }   
-            //heredoc
+        else if (ft_strncmp(file->redirection, "<<", 2) == 0)
+            heredoc_file(file->heredoc_fd);
         if (exit_status == 1)
         {
             if (prosses == 1)
