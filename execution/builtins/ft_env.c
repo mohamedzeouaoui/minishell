@@ -20,9 +20,11 @@ int ft_env(char **env, int prosses)
     (void)prosses;
     while(env != NULL && env[i] != NULL)
     {
-        printf("%s\n", env[i]);
+        if (ft_strncmp(env[i], "_=", 2) == 0)
+			printf("_=env\n");
+        else
+            printf("%s\n", env[i]);
         i++;
     }
-
     return (0);
 }

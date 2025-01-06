@@ -16,6 +16,7 @@ int input_file_clear(t_files *file)
 {
     int fd;
 
+    printf("file->file: %s\n", file->file);
     fd = open(file->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (fd == -1)
     {
@@ -67,9 +68,9 @@ int file_redirection(t_files *file, int prosses)
 {
     int exit_status;
     int i;
-
-    i = 0;
+    int fdd;
     
+    i = 0;
     if (file == NULL)
         return (1);    
     while (file != NULL)
@@ -80,8 +81,15 @@ int file_redirection(t_files *file, int prosses)
             exit_status = input_file_append(file);
         else if (ft_strncmp(file->redirection, "<", 1) == 0 )
             output_file(file->file);
+        
         // else if (ft_strncmp(file->redirection, "<<", 2) == 0)
-        //     //heredoc
+        // { 
+        //    open(file->file, O_RDONLY);
+        //     // store the file descriptor in the file struct
+        //     ft_dup2(fdd, 0);
+        //     close(fdd);
+        // }   
+            //heredoc
         if (exit_status == 1)
         {
             if (prosses == 1)

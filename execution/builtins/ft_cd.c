@@ -18,12 +18,13 @@ void pwd_update(char *path)
     if (search_in_env("PWD") != NULL)
     {
         free(search_in_env("PWD")->value);
-        search_in_env("PWD")->value = ft_strdup_normal(path);
+        search_in_env("PWD")->value = getcwd(NULL, 0);
     }
-    // if ()
-    // {
-        // we need some condition to update the pwd in the shell state
-    // }
+    if (search_in_env("OLDPWD") != NULL)
+    {
+        free(search_in_env("OLDPWD")->value);
+        search_in_env("OLDPWD")->value = ft_strdup(path);
+    }
     free(path);
     free(get_shell_state()->pwd);
     get_shell_state()->pwd = getcwd(NULL, 0);
@@ -48,7 +49,7 @@ int cd_to_path(t_data *data)
     }
     else if (data->args[1][0] != '\0' && chdir(data->args[1]) == -1)
     {
-        free(path);
+        // free(path);
         print_errore("minishell: cd: ");
         perror(data->args[1]);
     }

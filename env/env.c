@@ -59,7 +59,7 @@ t_env *search_in_env(char *key)
     head = get_shell_state()->env;
     while (head)
     {
-        if (ft_strncmp(head->key, key, ft_strlen(head->key) + 11) == 0) 
+        if (ft_strncmp(head->key, key, ft_strlen(head->key) + 1) == 0) 
             return (head);
         head = head->next;
     }

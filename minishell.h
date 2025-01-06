@@ -96,6 +96,10 @@ int print_errore_exit(char *error, int exit_status);
 char	**ft_split(char const *s, char c);
 char *ft_itoa(int n);
 int	ft_lstsize_env(t_env *lst);
+int ft_isalpha(char c);
+int ft_isalnum(int c);
+char *ft_strcpy(char *str, char *str2);
+char *ft_strcat(char *str, char *str2);
 
 //----> set_last_arg
 
@@ -118,6 +122,7 @@ void	ft_parse_env(char **env, t_shell *shell);
 t_env *search_in_env(char *key);
 char **env_lst_to_tab(void);
 char **export_env_sorted(void);
+void ft_add_env(t_env **env, t_env *new);
 
 
 // execution
