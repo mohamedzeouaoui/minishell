@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/05 20:30:44 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/06 17:07:45 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,15 @@ t_data	*ft_errors(t_data *cmd_list)
 	herdoc = ft_count_herdoc(cmd_list);
 	if (!ft_red_error(cmd_list) || !ft_pipe_error(cmd_list) || herdoc > 16)
 	{
-		//check for file!!!
+		ft_expand(cmd_list);
 		get_shell_state()->exit_status = 2;
 		if (herdoc > 16)
 		{
 			ft_print_err("bash: maximum here-document count exceeded");
 			//exitiiiiiiiiiiiiiiiiiiiiiiiiit !!!
 		}
+		if (herdoc > 0)
+			ft_heredoc(cmd_list);
 		return (NULL);
 	}
 	return (cmd_list);
