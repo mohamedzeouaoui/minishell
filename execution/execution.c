@@ -42,7 +42,7 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i, 
         files_pipe(fd_pipe, (*fd_stdout_stored), size, i);
         if(data->files != NULL)
             file_redirection(data->files, 0);
-        if (is_builtins(data) == 0)
+        if (check_built(data, 0) == 0)
             command_execution(data, size);
         exit(get_shell_state()->exit_status);
     }
@@ -60,7 +60,7 @@ void    ft_exec(t_data *data, int size)
     int last_process_id = -1;
     int status;
 
-    if (check_built(data, 1) == 1 && size == 1 )
+    if (size == 1 && check_built(data, 1) == 1)
         return ;
     id_child = (int *)mallocc(sizeof(int) * size);
     get_shell_state()->exit_status = 0;
