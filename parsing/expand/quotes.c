@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 18:38:29 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 18:39:07 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/06 11:23:53 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,31 @@ void ft_handle_quotes(t_helper *h, char *str)
             h->i++;
         }
     }
+}
+
+char **ft_remove_quotes(char *file)
+{
+    int i;
+    int j;
+    int quote;
+    char **result;
+
+    i = 0;
+    j = 0;
+    quote = 0;
+    result = malloc(2 * sizeof(char *));
+    result[0] = malloc(sizeof(char) * (ft_strlen(file) + 1));
+    while (file[i])
+    {
+        if ((file[i] == '\'' || file[i] == '\"') && !quote)
+            quote = file[i++];
+        else if (file[i] == quote)
+        {
+            quote = 0;
+            i++;
+        }else
+            result[0][j++] = file[i++];
+    }
+    result[1] = NULL;
+    return result;
 }
