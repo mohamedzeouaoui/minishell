@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 20:52:36 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/06 10:59:38 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ t_shell *get_shell_state(void);
 void ft_dollar_sign(t_helper *h, char *str);
 void ft_handle_quotes(t_helper *h, char *str);
 void ft_get_var_value(t_helper *h, char *str);
+char **ft_remove_quotes(char *file);
 void ft_expand(t_data *cmd_list);
 
 // env
