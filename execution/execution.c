@@ -59,6 +59,7 @@ void    ft_exec(t_data *data, int size)
     int fd_stdout_stored = -1;
     int last_process_id = -1;
     int status;
+    int pid;
 
     if (size == 1 && check_built(data, 1) == 1)
         return ;
@@ -74,7 +75,7 @@ void    ft_exec(t_data *data, int size)
     i = 0;
     assert(last_process_id != -1);
     while (i < size) {
-        int pid = waitpid(-1, &status, 0);
+        pid = waitpid(-1, &status, 0);
         if (pid == last_process_id)
             get_shell_state()->exit_status = WEXITSTATUS(status);
         i++;
