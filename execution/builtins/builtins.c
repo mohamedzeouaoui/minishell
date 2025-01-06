@@ -39,6 +39,7 @@ void ft_builtins_run(t_data *data, int prosses)
     eta = 0;
     if (data->files != NULL && prosses == 1)
         eta = file_redirection(data->files, prosses);
+
     if (eta == 1)
         get_shell_state()->exit_status = 1;    
     if (ft_strncmp(data->args[0], "echo", 5) == 0)
