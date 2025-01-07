@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:00:38 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 16:42:23 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:10:46 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,4 @@ void    ft_exec(t_data *data, int size)
             get_shell_state()->exit_status = WEXITSTATUS(status);
         i++;
     }
-    printf("exit status: %d\n", get_shell_state()->exit_status);
 }
