@@ -47,13 +47,19 @@ int check_variable_valid(char *variable)
     
     i = 0;
     if (!ft_isalpha(variable[i]) && variable[i] != '_')
+    {
         print_errore_mix("minishell: export: `", variable,"': not a valid identifier\n", -1);
+        return(1);
+    }
     while (variable[++i] && variable[i] != '=')
     {
         if (variable[i + 1] == '=' && variable[i] == '+')
             return (1);
         if (!ft_isalnum(variable[i]) && variable[i] != '_')
+        {
             print_errore_mix("minishell: export: `", variable,"': not a valid identifier\n", -1);
+            return(1);
+        }
     }
     return (0);
 }
