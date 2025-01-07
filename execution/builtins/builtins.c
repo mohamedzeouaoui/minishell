@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 16:49:47 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/06 16:49:49 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:04:32 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int check_built(t_data *data, int prosses)
 
     file[0] = files_dup(0);
     file[1] = files_dup(1);
-    if ((data == NULL || *(data->args) == NULL))
+    if (( data->args == NULL || *(data->args) == NULL))
     {
+        print_errore("minishell: \n");
         if (data->files != NULL && prosses == 1)
         {
             get_shell_state()->exit_status = file_redirection(data->files, prosses);
