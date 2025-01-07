@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/07 16:57:17 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:56:02 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ t_data *tokenize_input(char *input)
         new_cmd = parse_command(input, &curr_pos, curr_pos, 0);
         if (!new_cmd)
         {
-            //get_specials()->exit_status = 2;
-            //print_err("Syntax error: Unclosed quotes\n");
+            get_shell_state()->exit_status = 2;
+            ft_print_err("Syntax error: Unclosed quotes\n");
             return (NULL);
         }
         ft_lstadd_back(&cmd_list, new_cmd);
@@ -153,11 +153,7 @@ t_data *tokenize_input(char *input)
     // Final error checking and status setting
     if (cmd_list && !ft_errors(cmd_list))
         return (NULL);
-    //ft_expand(cmd_list);
     if (cmd_list)
-    {
         get_shell_state()->exit_status = 0;
-        // need to set last argument
-    }
     return (cmd_list);
 }
