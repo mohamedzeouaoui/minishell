@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/06 17:07:45 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:56:31 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,9 @@ t_data	*ft_errors(t_data *cmd_list)
 			ft_heredoc(cmd_list);
 		return (NULL);
 	}
+	ft_expand(cmd_list);
+	if (herdoc > 0)
+		ft_heredoc(cmd_list);
 	return (cmd_list);
 }
 
