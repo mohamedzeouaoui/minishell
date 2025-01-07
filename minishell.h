@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/06 13:29:00 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/07 16:29:38 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,10 @@ char **ft_remove_quotes(char *file);
 void ft_expand(t_data *cmd_list);
 
 // heredoc
+int	ft_isdigit(int d);
+int	ft_isalnum(int c);
+char *expand_env_var(char *str);
+char *ft_get_name(int *i, char *str);
 int ft_heredoc(t_data *cmd_list);
 
 // env
