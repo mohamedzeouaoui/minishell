@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:44:31 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 19:05:27 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/07 19:05:46 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,23 @@ int output_file(char *file)
         perror(file);
         exit (1); //ft_exit_clean(1);
     }
-    ft_dup2(fd, 0);
+    ft_dup2(fd, STDIN_FILENO);
     close(fd);
     return (0);
 }
-int heredoc_file(char *file)
+int heredoc_file(t_files *file)
 {
     int fd;
 
-    fd = open(file, O_RDONLY);
+    fd = file->heredoc_fd;
     if (fd == -1)
     {
         // print_errore("minishell: ");
         print_errore("minishell: ");
-        perror(file);
+        perror(file->file);
         exit (1); //ft_exit_clean(1);
     }
-    ft_dup2(fd, p_outp);
+    ft_dup2(fd, 0);
     close(fd);
     return (0);
 }
@@ -94,10 +94,10 @@ int file_redirection(t_files *file, int prosses)
             exit_status = input_file_clear(file);
         else if (ft_strncmp(file->redirection, ">>", 3) == 0)
             exit_status = input_file_append(file);
-        else if (ft_strncmp(file->redirection, "<", 1) == 0 )
+        else if (ft_strncmp(file->redirection, "<", 2) == 0 )
             output_file(file->file);
-        else if (ft_strncmp(file->redirection, "<<", 2) == 0)
-            heredoc_file(file->heredoc_fd);
+        else if (ft_strncmp(file->redirection, "<<", 3) == 0)
+            heredoc_file(file);
         if (exit_status == 1)
         {
             if (prosses == 1)
