@@ -84,7 +84,6 @@ void ft_read_and_write(int fd[2], char *delimiter)
     exit(0);
 }
 
-
 int ft_open_heredoc(char *delimiter)
 {
     int fd[2];
@@ -103,7 +102,10 @@ int ft_open_heredoc(char *delimiter)
         exit(1); // exit and clean 
     }
     if (pid == 0)
+    {
+        signal(SIGINT, SIG_DFL);
         ft_read_and_write(fd, delimiter);
+    }
     waitpid(-1, &status, 0);
     get_shell_state()->exit_status = WEXITSTATUS(status);
     close(fd[p_inp]);
