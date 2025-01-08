@@ -41,6 +41,7 @@ void ft_exit(t_data *data, int prosses, int *exit_status)
 {
     int i;
 
+    (void)prosses;
     i = 0;
     while (data->args[i])
         i++;
@@ -56,5 +57,6 @@ void ft_exit(t_data *data, int prosses, int *exit_status)
         print_errore_mix("exit", " numeric argument required", data->args[1], 255);
         return ;
     }
+    (*exit_status) = atoi(data->args[1]);
     exit(atoi(data->args[1]));
 }

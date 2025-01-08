@@ -44,7 +44,6 @@ void	ft_parse_env(char **env, t_shell *shell)
 {
     int		i;
     t_env	*new;
-    t_env	*tmp;
 
     i = 0;
     while (env[i])

@@ -1,5 +1,5 @@
 CC = cc
-#CFLAGS = -Werror -Wextra -Wall -g3 #-fsanitize=address
+CFLAGS = -Werror -Wextra -Wall -g3 #-fsanitize=address
 RM = rm -rf
 UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c ./utils/ft_iswhitespace.c \
 	./utils/ft_lstsize.c ./utils/ft_lst.c ./utils/ft_strdup.c ./utils/ft_strjoin.c ./utils/ft_strlen.c \

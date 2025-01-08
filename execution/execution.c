@@ -14,6 +14,7 @@
 
 int command_execution(t_data *data, int size)
 {
+    (void)size;
     command_not_found(data);
     if (check_slash_in_path(data->args[0]) == true)
         check_run_path_not_commande(data->args[0], data);
@@ -47,7 +48,8 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i, 
             command_execution(data, size);
         exit(get_shell_state()->exit_status);
     }
-    close(fd_pipe[p_inp]);
+    if (size > 1 && i != size - 1)    
+        close(fd_pipe[p_inp]);
     if (*fd_stdout_stored != -1)
         close(*fd_stdout_stored);
     (*fd_stdout_stored) = fd_pipe[p_outp];

@@ -27,7 +27,6 @@ char **ft_handle_expansions(char *str, int flag)
 {
     t_helper *h;
     char **result_arr;
-    int i;
 
     h = malloc(sizeof(t_helper));
     if (!h)
@@ -95,9 +94,6 @@ void ft_expand_files(t_files *files)
 void ft_expand(t_data *cmd_list)
 {
     t_data *current;
-    t_files *files;
-    int i;
-    char **expanded_args;
 
     current = cmd_list;
     while (current)

@@ -59,9 +59,9 @@ char *ft_expand_line(char *line)
 void ft_read_and_write(int fd[2], char *delimiter)
 {
     char *line;
-    int ret;
 
     close(fd[p_outp]);
+    line = NULL;
     while (1)
     {
         line = readline("> ");
@@ -70,7 +70,7 @@ void ft_read_and_write(int fd[2], char *delimiter)
             ft_print_err("warning: here-document delimited by end-of-file\n");
             break;
         }
-        if (!ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1))
+        if (!ft_strncmp(line, delimiter, (ft_strlen(delimiter) + 1)))
         {
             free(line);
             break;

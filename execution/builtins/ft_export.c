@@ -15,7 +15,6 @@
 void print_exported_vars(void)
 {
     char **export_env;
-    t_env *tmp;
     int i;
     int j;
     
@@ -113,12 +112,11 @@ void add_to_export(char *var, char *value)
 
 void export_variables(char *variable)
 {
-    int i;
     int j;
     char *var;
     char *value;
     
-    i = check_variable_valid(variable);
+    check_variable_valid(variable);
     if (ft_strncmp(variable, "_", 2) == 0)
         return ;
     j = allocate_variable(variable, &var);
