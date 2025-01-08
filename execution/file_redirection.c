@@ -82,9 +82,6 @@ int heredoc_file(t_files *file)
 int file_redirection(t_files *file, int prosses)
 {
     int exit_status;
-    int i;
-
-    i = 0;
     
     if (file == NULL)
         return (1);    
