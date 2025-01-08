@@ -111,11 +111,11 @@ int check_dirctory(char *path)
 
 void command_not_found(t_data *data)
 {
-    if(data->args[0] == "..")
+    if(ft_strncmp(data->args[0], "..", 3) == 0)
         print_errore_mix(data->args[0], " command not found", NULL, 127);
-    else if(data->args[0] == ".")
+    else if(ft_strncmp(data->args[0], ".", 2) == 0)
         print_errore_mix(data->args[0], " command not found", NULL, 2);
-    else if(data->args[0] == "")
+    else if(ft_strncmp(data->args[0], "", 1) == 0)
         print_errore_mix(data->args[0], " command not found", NULL, 127);
 }
 
