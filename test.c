@@ -85,7 +85,10 @@ int main(int ac, char **av, char **env)
     char *input;
 
     t_shell *shell;
-    
+
+    (void)ac;
+    (void)av;
+
     shell = get_shell_state();
     shell->exit_status = 0;
     ft_parse_env(env, shell);
@@ -95,7 +98,9 @@ int main(int ac, char **av, char **env)
     {
         // Get input from user
         // sleep(1);
+        setup_signals();
         input = readline("minishell-test> ");
+
         if (!input)
             break;
 
@@ -109,7 +114,7 @@ int main(int ac, char **av, char **env)
         t_data *current = cmd_list;
         if (!current)
             printf("Error: Command list is empty\n");
-        int cmd_num = 0;
+        // int cmd_num = 0;
 
         // while (current)
         // {
@@ -133,7 +138,6 @@ int main(int ac, char **av, char **env)
             //         printf("\tFile: %s\n", file->file);
             //     }
             // }
-
             // // Execute the command
             if (current)
                 ft_exec(current, ft_lstsize(current));
