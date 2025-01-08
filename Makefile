@@ -12,7 +12,8 @@ PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_erro
 EXECUTION = ./execution/execution.c ./execution/builtins/builtins.c ./execution/builtins/ft_echo.c \
 	./execution/builtins/ft_cd.c ./execution/exit_file.c ./execution/builtins/ft_pwd.c \
 	./execution/builtins/ft_env.c ./execution/builtins/ft_unset.c ./execution/builtins/ft_exit.c \
-	./execution/file_redirection.c ./execution/pipe_fork_dup.c ./execution/utils_exec.c ./execution/builtins/ft_export.c 
+	./execution/file_redirection.c ./execution/pipe_fork_dup.c ./execution/utils_exec.c ./execution/builtins/ft_export.c \
+	./execution/signals/signals.c
 CFILES = test.c  ${PARSING} ${UTILS} ${EXECUTION} ${ENV} ${HEREDOC}
 OFILES = ${CFILES:.c=.o}
 NAME = minishell
