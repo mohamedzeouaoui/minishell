@@ -85,7 +85,6 @@ int check_built(t_data *data, int prosses)
     file[1] = files_dup(1);
     if (( data->args == NULL || *(data->args) == NULL))
     {
-        print_errore("minishell: \n");
         if (data->files != NULL && prosses == 1)
         {
             get_shell_state()->exit_status = file_redirection(data->files, prosses);
