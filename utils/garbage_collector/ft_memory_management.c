@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 06:08:11 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/16 02:51:39 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 13:57:24 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,29 @@ static  t_stack    **get_head(void)
 ** Returns: Pointer to allocated memory
 */
 
-void    *mallocc(size_t size)
+void	*mallocc(size_t size)
 {
-    t_stack    *new_node;
-    t_stack    **head;
-    void    *allocated_memory;
+	t_stack	*new;
+	t_stack	**head;
 
-    // Allocate tracking node
-    new_node = (t_stack *)malloc(sizeof(t_stack));
-    // Allocate requested memory
-    allocated_memory = malloc(size);
-    new_node->ptr = allocated_memory;
-    head = get_head();
-    new_node->next = *head;
-    *head = new_node;
-    return (allocated_memory);
+	new = (t_stack *)malloc(sizeof(t_stack));
+	if (new == NULL)
+	{
+		ft_print_err("minishell: allocation failed\n");
+		exit_clean(1);
+	}
+	new->ptr = malloc(size);
+	if (new->ptr == NULL)
+	{
+		free(new);
+		ft_print_err("minishell: allocation failed\n");
+		exit_clean(1);
+	}
+	head = get_head();
+	if (new != NULL)
+	{
+		new->next = *head;
+		*head = new;
+	}
+	return (new->ptr);
 }
