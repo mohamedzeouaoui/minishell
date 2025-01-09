@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 06:56:14 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/12 06:56:16 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:55:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void    ft_export(t_data *data, int *exit_status)
     i = 0;
    while (data->args[++i] != NULL)
    {
-        printf("variable[%d]%s\n", i, data->args[i]);
         export_variables(data->args[i]);
    }
    
