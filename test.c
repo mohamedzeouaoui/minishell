@@ -90,30 +90,41 @@ int main(int ac, char **av, char **env)
     (void)av;
 
     shell = get_shell_state();
+    get_shell_state()->herdoc = -1;
     shell->exit_status = 0;
     ft_parse_env(env, shell);
     
-    
+    // printf("%d", shell->herdoc);
     while (1)
     {
         // Get input from user
         // sleep(1);
-        setup_signals();
+        // if (cmd_list->files->heredoc_fd !=)
+        // {
+            // /* code */
+        // }
+
+		signal_cases_handel(0);
+
+        // setup_signals();
+
         input = readline("minishell-test> ");
 
         if (!input)
             break;
-
         // Add input to history
         add_history(input);
 
         // Parse the input into command list
         cmd_list = tokenize_input(input);
-        
+        // if (cmd_list->files->heredoc_fd != -1)
+        //     setup_signals();
+
+
         // Print command structure
         t_data *current = cmd_list;
         if (!current)
-            printf("Error: Command list is empty\n");
+            printf("Error:  list is empty\n");
         // int cmd_num = 0;
 
         // while (current)
@@ -139,6 +150,7 @@ int main(int ac, char **av, char **env)
             //     }
             // }
             // // Execute the command
+
             if (current)
                 ft_exec(current, ft_lstsize(current));
             

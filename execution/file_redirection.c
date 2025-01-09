@@ -69,7 +69,6 @@ int heredoc_file(t_files *file)
     fd = file->heredoc_fd;
     if (fd == -1)
     {
-        // print_errore("minishell: ");
         print_errore("minishell: ");
         perror(file->file);
         exit (1); //ft_exit_clean(1);

@@ -103,14 +103,17 @@ int ft_open_heredoc(char *delimiter)
     }
     if (pid == 0)
     {
-        signal(SIGINT, SIG_DFL);
+        signal_cases_handel(2);
+        get_shell_state()->herdoc = -1;
         ft_read_and_write(fd, delimiter);
     }
+    signal_cases_handel(1);
+    // signal(SIGINT, SIG_IGN);
     waitpid(-1, &status, 0);
     get_shell_state()->exit_status = WEXITSTATUS(status);
     close(fd[p_inp]);
-    // if (get_shell_state()->exit_status == 130 || get_shell_state()->exit_status == 131)
-		// return (-1);
+    if (get_shell_state()->exit_status == 130 || get_shell_state()->exit_status == 131)
+		return (-1);
     return (fd[p_outp]);
 }
 
@@ -128,6 +131,7 @@ int ft_heredoc(t_data *cmd_list)
             if (files->file && !ft_strncmp(files->redirection, "<<", 3))
             {
                 files->heredoc_fd = ft_open_heredoc(files->file);
+                get_shell_state()->herdoc = files->heredoc_fd ;
                 if (files->heredoc_fd == -1)
                     return (0);
                 return (1);
