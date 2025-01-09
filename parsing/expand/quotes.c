@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 18:38:29 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/07 18:37:57 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 14:02:25 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char **ft_remove_quotes(char *file)
         }else
             result[0][j++] = file[i++];
     }
+    result[0][j] = '\0';
     result[1] = NULL;
     return result;
 }
