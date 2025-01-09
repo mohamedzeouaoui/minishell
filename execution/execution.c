@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:00:38 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 19:10:46 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 02:19:49 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,9 @@ void    ft_exec(t_data *data, int size)
     if (size == 1 && check_built(data, 1) == 1)
         return ;
     id_child = (int *)mallocc(sizeof(int) * size);
-    if (ft_strncmp("./minishell", data->args[0], ft_strlen(data->args[0])) == 0)
-        setup_signals();
+    // if (ft_strncmp("./minishell", data->args[0], ft_strlen(data->args[0])) == 0)
+    //     setup_signals();
     setup_signals();
-
     get_shell_state()->exit_status = 0;
     i = 0;
     
