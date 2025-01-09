@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 18:38:29 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 14:02:25 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 20:36:19 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,13 @@ void ft_handle_quotes(t_helper *h, char *str)
         }
         else
         {
-            if (str[h->i] == '$' && (h->quote != '\'')) // Don't expand within single quotes
+            if (str[h->i] == '$' && (h->quote != '\''))// Don't expand within single quotes {
                 ft_dollar_sign(h, str);
             else
+            {
                 h->result[h->j++] = str[h->i];
-            h->i++;
+                h->i++;
+            }
         }
     }
 }
