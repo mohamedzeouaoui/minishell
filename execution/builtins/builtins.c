@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 16:49:47 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 17:04:32 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 02:11:07 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 int is_builtins(t_data *data)
 {
+    // printf("hhhhhh%shhhhhhh\n", data->args[0]);
+    if (data->args == NULL || data == NULL || data->args[0] == NULL)
+        return (0);
     if (ft_strncmp(data->args[0], "echo", 5) == 0)
         return (1);
     else if (ft_strncmp(data->args[0], "cd", 3) == 0)
@@ -93,6 +96,7 @@ int check_built(t_data *data, int prosses)
             return (1);
         }        
     }
+    // printf("")
     if (is_builtins(data) == 1)
         ft_builtins_run(data, prosses);
     else
