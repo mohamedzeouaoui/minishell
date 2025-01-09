@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 02:00:01 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 19:19:32 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_helper
 // utils
 unsigned int	ft_strlen(const char *s1);
 char    *ft_strdup(const char *s1);
-char    *ft_strdup_normal(const char *s1);
 char    *ft_strjoin(char const *s1, char const *s2, size_t n);
 int	ft_iswhitespace(int c);
 void    *mallocc(size_t size);
