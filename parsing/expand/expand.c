@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/06 12:38:03 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 01:54:15 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ char **ft_handle_expansions(char *str, int flag)
     ft_init_helper(h, str);
     ft_handle_quotes(h, str);
     h->result[h->j] = '\0';
-    if (flag == 1)
+
+    if (ft_strchr(str, '$') && flag == 1)
         result_arr = ft_split(h->result, ' ');
     else
     {
