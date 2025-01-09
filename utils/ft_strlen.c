@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 02:31:54 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/24 03:03:16 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 01:56:26 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,15 @@ unsigned int	ft_strlen(const char *s1)
 	while (s1[len])
 		len++;
 	return (len);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s != (char)c)
+	{
+		if (*s == '\0')
+			return (0);
+		s++;
+	}
+	return ((char *)s);
 }
