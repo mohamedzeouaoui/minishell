@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 13:59:29 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 19:54:09 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,36 @@
 
 void ft_init_helper(t_helper *helper, char *str)
 {
+    int len;
+
+    len = ft_strlen(str);
     helper->i = 0;
     helper->j = 0;
     helper->quote = 0;
     helper->from_env = 0;
-    helper->result = mallocc(sizeof(char) * (ft_strlen(str)*20 + 1));
+    helper->result = mallocc(sizeof(char) * (len*10));
     if (!helper->result)
         return;
+    bzero(helper->result, sizeof(char) * (len * 10));
 }
 
 char **ft_handle_expansions(char *str, int flag)
 {
-    t_helper *h;
+    t_helper h;
     char **result_arr;
 
-    h = malloc(sizeof(t_helper));
-    if (!h)
-        return NULL;
-    ft_init_helper(h, str);
-    ft_handle_quotes(h, str);
-    h->result[h->j] = '\0';
+    result_arr = NULL;
+    ft_init_helper(&h, str);
+    ft_handle_quotes(&h, str);
+    h.result[h.j] = '\0';
 
     if (ft_strchr(str, '$') && flag == 1 && !ft_strchr(str, ' '))
-        result_arr = ft_split(h->result, ' ');
+        result_arr = ft_split(h.result, ' ');
     else
     {
-        result_arr = malloc(2 * sizeof(char*));
-        result_arr[0] = h->result;
+        result_arr = mallocc(2 * sizeof(char*));
+        result_arr[0] = h.result;
         result_arr[1] = NULL;
-        free(h);
     }
     return result_arr;
 }
