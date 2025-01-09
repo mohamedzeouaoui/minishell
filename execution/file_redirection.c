@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 14:44:31 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 19:05:46 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:33:19 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int output_file(char *file)
         // print_errore("minishell: ");
         print_errore("minishell: ");
         perror(file);
-        exit (1); //ft_exit_clean(1);
+        return (1); //ft_exit_clean(1);
     }
     ft_dup2(fd, STDIN_FILENO);
     close(fd);
