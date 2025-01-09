@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 15:22:53 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/31 16:12:08 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:13:20 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,10 @@ int check_dirctory(char *path)
 void command_not_found(t_data *data)
 {
     if(ft_strncmp(data->args[0], "..", 3) == 0)
-        print_errore_mix(data->args[0], " command not found", NULL, 127);
+        print_errore_mix("minishell: ", data->args[0], " command not found", 127);
     else if(ft_strncmp(data->args[0], ".", 2) == 0)
-        print_errore_mix(data->args[0], " command not found", NULL, 2);
+        print_errore_mix("minishell: ", ".: filename argument required\n", ".: usage: . filename [arguments]\n", 2);
     else if(ft_strncmp(data->args[0], "", 1) == 0)
-        print_errore_mix(data->args[0], " command not found", NULL, 127);
+        print_errore_mix("minishell: ", data->args[0], " command not found", 127);
 }
 
