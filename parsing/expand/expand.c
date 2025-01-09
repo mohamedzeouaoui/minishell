@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 10:26:03 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 13:25:53 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 13:59:29 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void ft_init_helper(t_helper *helper, char *str)
     helper->j = 0;
     helper->quote = 0;
     helper->from_env = 0;
-    helper->result = mallocc(sizeof(char) * (ft_strlen(str) + 1));
+    helper->result = mallocc(sizeof(char) * (ft_strlen(str)*20 + 1));
     if (!helper->result)
         return;
 }
