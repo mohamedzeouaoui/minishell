@@ -63,6 +63,7 @@ typedef struct s_shell
 	t_env	*env;
 	int		exit_status;
 	char	*pwd;
+	int		herdoc;
 } t_shell;
 
 typedef struct s_helper
@@ -149,11 +150,10 @@ void command_not_found(t_data *data);
 void check_run_path_not_commande(char *path, t_data *data);
 
 //SIGNALS
-void sig_handler(int signum);
-void sig_handler_child(int signum);
-void setup_signals(void);
-void child_process(/* your parameters */);
-void heredoc_signal(void);
+
+void	signal_cases_handel(int cas);
+
+
 
 // builtins
 int ft_echo(t_data *data);
