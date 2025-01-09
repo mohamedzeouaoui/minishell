@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 16:51:14 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/06 16:51:17 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:53:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ft_exit(t_data *data, int prosses, int *exit_status)
     i = 0;
     while (data->args[i])
         i++;
-    if (ft_isnumber(data->args[1]) == 0)
+    if (ft_isnumber(data->args[1]) == 0 && data->args[1] != NULL)
     {
         print_errore_mix("exit", " numeric argument required\n", data->args[1], 255);
         return ;
@@ -55,6 +55,7 @@ void ft_exit(t_data *data, int prosses, int *exit_status)
         print_errore_mix("exit", " too many arguments\n", NULL, 1);
         return ;
     }
+    printf("exit\n");
     if (i == 1)
         exit(0);
     (*exit_status) = atoi(data->args[1]);
