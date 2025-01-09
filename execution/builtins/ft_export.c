@@ -45,6 +45,7 @@ int check_variable_valid(char *variable)
     int i;
     
     i = 0;
+
     if (!ft_isalpha(variable[i]) && variable[i] != '_')
     {
         print_errore_mix("minishell: export: `", variable,"': not a valid identifier\n", -1);
@@ -149,6 +150,7 @@ void    ft_export(t_data *data, int *exit_status)
     i = 0;
    while (data->args[++i] != NULL)
    {
+        printf("variable[%d]%s\n", i, data->args[i]);
         export_variables(data->args[i]);
    }
    

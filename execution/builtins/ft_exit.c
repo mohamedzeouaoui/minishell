@@ -45,18 +45,18 @@ void ft_exit(t_data *data, int prosses, int *exit_status)
     i = 0;
     while (data->args[i])
         i++;
+    if (ft_isnumber(data->args[1]) == 0)
+    {
+        print_errore_mix("exit", " numeric argument required\n", data->args[1], 255);
+        return ;
+    }
     if (i > 2)
     {
-        print_errore_mix("exit", " too many arguments", NULL, 1);
+        print_errore_mix("exit", " too many arguments\n", NULL, 1);
         return ;
     }
     if (i == 1)
         exit(0);
-    if (ft_isnumber(data->args[1]) == 0)
-    {
-        print_errore_mix("exit", " numeric argument required", data->args[1], 255);
-        return ;
-    }
     (*exit_status) = atoi(data->args[1]);
     exit(atoi(data->args[1]));
 }
