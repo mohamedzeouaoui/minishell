@@ -12,43 +12,51 @@
 
 #include "../../minishell.h"
 
-void sig_handler(int signum)
+__sighandler_t	ft_signal(int _sig, __sighandler_t _handler)
 {
-    if (signum == SIGINT)
+	__sighandler_t	ret;
+
+	ret = signal(_sig, _handler);
+	if (ret == SIG_ERR)
+	{
+		perror("minishell");
+		exit(1);
+	}
+	return (ret);
+}
+
+void	signal_handler(int sig)
+{
+	get_shell_state()->exit_status = 128 + sig;
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+	ft_signal(sig, signal_handler);
+}
+
+void	signal_cases_handel(int cas)
+{
+	if (cas == 0)
+	{
+        get_shell_state()->exit_status = 130;
+		ft_signal(SIGINT, signal_handler);
+		ft_signal(SIGQUIT, SIG_IGN);
+	}
+	else if (cas == 1)
+	{
+        get_shell_state()->exit_status = 130;
+		ft_signal(SIGINT, SIG_IGN);
+		ft_signal(SIGQUIT, SIG_IGN);
+	}
+    else if (cas == 2)
     {
-        write(1, "\n", 1);
-        rl_on_new_line();
-        rl_replace_line("", 0);
-        rl_redisplay();
+        signal(SIGINT, SIG_DFL);
     }
-    get_shell_state()->exit_status =(128 + signum);
 }
 
-void sig_handler_child(int signum)
-{
-    if (signum == SIGINT)
-        write(1, "\n", 1);
-    else if (signum == SIGQUIT)
-        write(1, "Quit (core dumped)\n", 19);
-}
 
-void setup_signals(void)
-{
-    signal(SIGINT, sig_handler);
-    signal(SIGQUIT, SIG_IGN);
-}
-// void heredoc_signal(int signum)
-// {
-//     signal(SIGINT, SIG_DFL);
-//     signal(SIGQUIT, SIG_IGN);
-//     if (signum == SIGINT)
-//         exit(130);
-//     // exit(130);
-// }
 
-void child_process()
-{
-    signal(SIGINT, sig_handler_child);
-    signal(SIGQUIT, sig_handler_child);
-    // Rest of your child process code
-}
