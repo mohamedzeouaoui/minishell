@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 19:58:15 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/07 19:58:17 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:01:39 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	signal_cases_handel(int cas)
 {
 	if (cas == 0)
 	{
-        get_shell_state()->exit_status = 130;
+        //get_shell_state()->exit_status = 130;
 		ft_signal(SIGINT, signal_handler);
 		ft_signal(SIGQUIT, SIG_IGN);
 	}
 	else if (cas == 1)
 	{
-        get_shell_state()->exit_status = 130;
+        // get_shell_state()->exit_status = 130;
 		ft_signal(SIGINT, SIG_IGN);
 		ft_signal(SIGQUIT, SIG_IGN);
 	}
