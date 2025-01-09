@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 06:56:19 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/05 18:15:59 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:37:45 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,7 @@ int main(int ac, char **av, char **env)
 
         // Print command structure
         t_data *current = cmd_list;
-        if (!current)
-            printf("Error:  list is empty\n");
+        
         // int cmd_num = 0;
 
         // while (current)
