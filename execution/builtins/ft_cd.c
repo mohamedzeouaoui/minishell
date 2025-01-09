@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 16:50:07 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/29 03:56:21 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/09 17:48:15 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int cd_to_path(t_data *data)
         // free(path);
         print_errore("minishell: cd: ");
         perror(data->args[1]);
+        return(1);
     }
     //update pwd;
     pwd_update(path);
