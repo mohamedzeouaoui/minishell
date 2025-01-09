@@ -26,7 +26,7 @@ void check_run_path_not_commande(char *path, t_data *data)
         if (access(new_path, X_OK) == 0)
         {
             if (execve(new_path, data->args, env_lst_to_tab()) == -1)
-                print_errore_mix(" permission denied", NULL, NULL, 127);
+                print_errore_mix(" permission denied\n", NULL, NULL, 127);
             exit(get_shell_state()->exit_status);
         }
         else
