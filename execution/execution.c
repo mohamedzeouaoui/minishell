@@ -40,7 +40,7 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i, 
         (*last_process_id) = id_child[i];
     if (id_child[i] == 0)
     {
-        child_process();
+        signal_cases_handel(2);
         files_pipe(fd_pipe, (*fd_stdout_stored), size, i);
         if(data->files != NULL)
             file_redirection(data->files, 0);
@@ -48,6 +48,7 @@ void run_command_in_child_process(t_data *data, int *id_child, int size, int i, 
             command_execution(data, size);
         exit(get_shell_state()->exit_status);
     }
+    signal_cases_handel(1);
     if (size > 1 && i != size - 1)    
         close(fd_pipe[p_inp]);
     if (*fd_stdout_stored != -1)
@@ -67,13 +68,8 @@ void    ft_exec(t_data *data, int size)
     if (size == 1 && check_built(data, 1) == 1)
         return ;
     id_child = (int *)mallocc(sizeof(int) * size);
-    if (ft_strncmp("./minishell", data->args[0], ft_strlen(data->args[0])) == 0)
-        setup_signals();
-    setup_signals();
-
     get_shell_state()->exit_status = 0;
     i = 0;
-    
     while (i < size)
     {
         run_command_in_child_process(data, id_child, size, i, &fd_stdout_stored, &last_process_id);
