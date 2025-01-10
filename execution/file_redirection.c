@@ -23,7 +23,6 @@ int input_file_clear(t_files *file)
         perror(file->file);
         return (1);
     }
-    // store the file descriptor in the file struct
     ft_dup2(fd, 1);
     close(fd);
     return (0);
@@ -41,7 +40,6 @@ int input_file_append(t_files *file)
         perror(file->file);
         return (1);
     }
-    // store the file descriptor in the file struct
     ft_dup2(fd, 1);
     close(fd);
     return (0);
@@ -53,10 +51,9 @@ int output_file(char *file)
     fd = open(file, O_RDONLY);
     if (fd == -1)
     {
-        // print_errore("minishell: ");
         print_errore("minishell: ");
         perror(file);
-        return (1); //ft_exit_clean(1);
+        return (1); 
     }
     ft_dup2(fd, STDIN_FILENO);
     close(fd);
@@ -71,7 +68,7 @@ int heredoc_file(t_files *file)
     {
         print_errore("minishell: ");
         perror(file->file);
-        exit (1); //ft_exit_clean(1);
+        exit (1);
     }
     ft_dup2(fd, 0);
     close(fd);
@@ -82,6 +79,7 @@ int file_redirection(t_files *file, int prosses)
 {
     int exit_status;
     
+    exit_status = 0;
     if (file == NULL)
         return (1);    
     while (file != NULL)
@@ -98,7 +96,7 @@ int file_redirection(t_files *file, int prosses)
         {
             if (prosses == 1)
                 return (1);
-            exit(1); //ft_exit_clean(1);
+            exit(1);
         }
         file = file->next;
     }
