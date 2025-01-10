@@ -49,12 +49,10 @@ int cd_to_path(t_data *data)
     }
     else if (data->args[1][0] != '\0' && chdir(data->args[1]) == -1)
     {
-        // free(path);
         print_errore("minishell: cd: ");
         perror(data->args[1]);
         return(1);
     }
-    //update pwd;
     pwd_update(path);
     return (0);
 }
@@ -83,7 +81,6 @@ int home_cd(void)
         perror(search_in_env("HOME")->value);
         return (1);
     }
-    //updtate pwd;
     pwd_update(home);
     return (0);
 }
