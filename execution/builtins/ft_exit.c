@@ -22,11 +22,9 @@ int ft_isnumber(const char *str)
     if (!str || *str == '\0')
         return (0);
 
-    // Handle optional leading sign
     if (*str == '-' || *str == '+')
         str++;
 
-    // Check if the rest of the string is composed of digits
     while (*str)
     {
         if (!ft_isdigit(*str))
