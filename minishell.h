@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/10 23:00:37 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/10 23:46:05 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	ft_lstsize_env(t_env *lst);
 int ft_isalpha(char c);
 int ft_isalnum(int c);
 char *ft_strcpy(char *str, char *str2);
+char	*ft_strncpy(char *dst, const char *src, size_t len);
 char *ft_strcat(char *str, char *str2);
 char	*ft_strchr(const char *s, int c);
 void	ft_clean(void);

@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:08:36 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/07 17:47:47 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 00:03:19 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void ft_read_and_write(int fd[2], char *delimiter)
         if (!line)
         {
             ft_print_err("warning: here-document delimited by end-of-file\n");
+            free(line);
             break;
         }
         if (!ft_strncmp(line, delimiter, (ft_strlen(delimiter) + 1)))

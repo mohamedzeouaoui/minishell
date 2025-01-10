@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 07:12:16 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/10 18:02:05 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 00:01:23 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ char *get_var_name(t_helper *h, char *str)
         var_name = ft_strdup("?");
         h->i++;
     }
-    else if (isdigit(str[h->i]))
+    else if (ft_isdigit(str[h->i]))
     {
         var_name = ft_strdup("1");
         h->i++;
     }
     else
     {
-        while (str[h->i] && (isalnum(str[h->i]) || str[h->i] == '_'))
+        while (str[h->i] && (ft_isalnum(str[h->i]) || str[h->i] == '_'))
         {
             k++;
             h->i++;
         }
         var_name = mallocc(sizeof(char) * (k + 1));
-        strncpy(var_name, &str[h->i - k], k);
+        ft_strncpy(var_name, &str[h->i - k], k);
         var_name[k] = '\0';
     }
     return var_name;
@@ -64,7 +64,7 @@ void copy_expansion(t_helper *h, char *expansion)
     int len;
     
     len = ft_strlen(expansion);
-    memcpy(&h->result[h->j], expansion, len);
+    ft_strncpy(&h->result[h->j], expansion, len);
     h->j += len;
 }
 
@@ -85,8 +85,6 @@ void ft_get_var_value(t_helper *h, char *str)
     }else
         h->from_env = 1;
     copy_expansion(h, expansion);
-    // Adjust index to point to the character after the variable name
-    // h->i--;
 }
 
 void ft_dollar_sign(t_helper *h, char *str)
@@ -100,7 +98,7 @@ void ft_dollar_sign(t_helper *h, char *str)
             h->result[h->j++] = ' ';
         return ;
     }
-    if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_'))
+    if ((str[h->i] == '?' || ft_isalnum(str[h->i]) || str[h->i] == '_'))
         ft_get_var_value(h, str);
     else
     {

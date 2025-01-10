@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:10:24 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/07 18:05:31 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/10 23:41:36 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char *ft_get_name(int *i, char *str)
             (*i)++;
         }
         var_name = malloc(sizeof(char) * (k + 1));
-        strncpy(var_name, &str[*i - k], k);
+        ft_strncpy(var_name, &str[*i - k], k);
         var_name[k] = '\0';
     }
     return var_name;

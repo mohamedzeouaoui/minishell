@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 02:14:50 by asodor            #+#    #+#             */
-/*   Updated: 2024/11/19 18:02:41 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 00:12:45 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,14 @@ void parse_redirections(t_data *cmd_list)
     {
         i = 0;
         new_args = NULL;
-
-        // Process each argument in the command
         while (current->args && current->args[i])
         {
             if (!process_redirection(current, current->args, &i))
             {
-                // Not a redirection, add to new arguments
                 new_args = ft_cmd_join(new_args, current->args[i]);
                 i++;
             }
         }
-
-        // Update command arguments (without redirections)
         current->args = ft_new_args(new_args);
         current = current->next;
     }

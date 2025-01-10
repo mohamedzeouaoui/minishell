@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 18:22:01 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/07 19:56:02 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 00:09:35 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,29 @@ int is_word_character(const char *str, int pos, char quote_status)
 ** Processes special characters and quoted strings
 ** Returns 1 if successful, 0 if quotes are unclosed
 */
+
 int process_token(const char *str, int *start, int *end)
 {
     char quote_char;
 
     quote_char = '\0';
-    
-    // Handle redirection operators
     if (str[*start] == '<' || str[*start] == '>')
     {
         *end = *start + 1;
-        // Check for double redirections (>> or <<)
         if (str[*start + 1] && str[*start] == str[*start + 1])
             *end = *start + 2;
         return (1);
     }
-    
-    // Process word characters and quotes
     while (is_word_character(str, *end, quote_char))
     {
         if (str[*end] == '\"' || str[*end] == '\'')
         {
             quote_char = str[*end];
             (*end)++;
-            
-            // Find matching closing quote
             while (str[*end] && str[*end] != quote_char)
                 (*end)++;
-                
-            if (!str[*end])  // Unclosed quote
+            if (!str[*end])
                 return (0);
-                
             quote_char = '\0';
         }
         (*end)++;
@@ -84,6 +76,7 @@ void initialize_command_data(t_data **cmd_list, char ***arg_array)
 ** Process single command and its arguments
 ** Returns command data structure or NULL if error
 */
+
 t_data *parse_command(char *str, int *pos, int start, int end)
 {
     char    *token;
@@ -91,30 +84,22 @@ t_data *parse_command(char *str, int *pos, int start, int end)
     char    **arguments;
 
     initialize_command_data(&cmd_data, &arguments);
-    
     while (str[start] && str[start] != '|')
     {
-        // Skip whitespace
         while (str[start] && ft_iswhitespace(str[start]))
             start++;
-            
-        // Process command/argument tokens
         while (str[start] && str[start] != '|' && !ft_iswhitespace(str[start]))
         {
             end = start;
             if (!process_token(str, &start, &end))
-                return (NULL);  // Quote error
-                
+                return (NULL); 
             token = ft_substr(str, start, end - start);
             arguments = ft_cmd_join(arguments, token);
             start = end;
         }
     }
-    
-    // Move past pipe if present
     if (str[start] == '|')
         start++;
-        
     *pos = start;
     cmd_data->args = arguments;
     return (cmd_data);
@@ -132,12 +117,8 @@ t_data *tokenize_input(char *input)
     
     curr_pos = 0;
     cmd_list = NULL;
-
-    // Add space for consistent parsing
     if (input && input[0])
         input = ft_strjoin(input, " ", 1);
-
-    // Process each command (separated by pipes)
     while (input[curr_pos])
     {
         new_cmd = parse_command(input, &curr_pos, curr_pos, 0);
@@ -150,7 +131,6 @@ t_data *tokenize_input(char *input)
         ft_lstadd_back(&cmd_list, new_cmd);
     }
     parse_redirections(cmd_list);
-    // Final error checking and status setting
     if (cmd_list && !ft_errors(cmd_list))
         return (NULL);
     if (cmd_list)
