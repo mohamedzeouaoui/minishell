@@ -12,98 +12,98 @@
 
 #include "../../minishell.h"
 
-
-void pwd_update(char *path)
+void	pwd_update(char *path)
 {
-    if (search_in_env("PWD") != NULL)
-    {
-        free(search_in_env("PWD")->value);
-        search_in_env("PWD")->value = getcwd(NULL, 0);
-    }
-    if (search_in_env("OLDPWD") != NULL)
-    {
-        free(search_in_env("OLDPWD")->value);
-        search_in_env("OLDPWD")->value = ft_strdup(path);
-    }
-    free(path);
-    free(get_shell_state()->pwd);
-    get_shell_state()->pwd = getcwd(NULL, 0);
-    return ;
+	if (search_in_env("PWD") != NULL)
+	{
+		free(search_in_env("PWD")->value);
+		search_in_env("PWD")->value = getcwd(NULL, 0);
+	}
+	if (search_in_env("OLDPWD") != NULL)
+	{
+		free(search_in_env("OLDPWD")->value);
+		search_in_env("OLDPWD")->value = ft_strdup(path);
+	}
+	free(path);
+	free(get_shell_state()->pwd);
+	get_shell_state()->pwd = getcwd(NULL, 0);
+	return ;
 }
 
-int cd_to_path(t_data *data)
+int	cd_to_path(t_data *data)
 {
-    char *path;
+	char	*path;
 
-    path = getcwd(NULL, 0);
-    if (path == NULL && chdir(data->args[1])== -1)
-    {
-        if(get_shell_state()->pwd != NULL)
-            print_errore_mix("minishell: cd: ",data->args[1],
-            "No such file or directory\n", -1);
-        else
-            print_errore_mix("chdir: error retrieving current directory: ",
-				"getcwd: cannot access parent directories: ",
+	path = getcwd(NULL, 0);
+	if (path == NULL && chdir(data->args[1]) == -1)
+	{
+		if (get_shell_state()->pwd != NULL)
+			print_errore_mix("minishell: cd: ", data->args[1],
 				"No such file or directory\n", -1);
-        return (1);
-    }
-    else if (data->args[1][0] != '\0' && chdir(data->args[1]) == -1)
-    {
-        print_errore("minishell: cd: ");
-        perror(data->args[1]);
-        return(1);
-    }
-    pwd_update(path);
-    return (0);
+		else
+			print_errore_mix("chdir: error retrieving current directory: ",
+				"getcwd: cannot access parent directories: ",
+				"No such file or directory\n",
+				-1);
+		return (1);
+	}
+	else if (data->args[1][0] != '\0' && chdir(data->args[1]) == -1)
+	{
+		print_errore("minishell: cd: ");
+		perror(data->args[1]);
+		return (1);
+	}
+	pwd_update(path);
+	return (0);
 }
 
-
-int home_cd(void)
+int	home_cd(void)
 {
-    char *home;
-    
-    if((search_in_env("HOME")) == NULL || (search_in_env("HOME")->value) == NULL)
-    {
-        print_errore("minishell: cd: HOME not set\n");
-        return (1);
-    }
-    home = getcwd(NULL, 0);
-    if (home == NULL && chdir(search_in_env("HOME")->value) == -1)
-    {
-        print_errore_mix("minishell: cd: ", search_in_env("HOME")->value,
+	char	*home;
+
+	if ((search_in_env("HOME")) == NULL
+		|| (search_in_env("HOME")->value) == NULL)
+	{
+		print_errore("minishell: cd: HOME not set\n");
+		return (1);
+	}
+	home = getcwd(NULL, 0);
+	if (home == NULL && chdir(search_in_env("HOME")->value) == -1)
+	{
+		print_errore_mix("minishell: cd: ", search_in_env("HOME")->value,
 			": No such file or directory\n", -1);
-        return (1);
-    }
-    else if (chdir(search_in_env("HOME")->value) == -1 && search_in_env("HOME")->value != NULL)
-    {
-        free(home);
-        print_errore("minishell: cd: ");
-        perror(search_in_env("HOME")->value);
-        return (1);
-    }
-    pwd_update(home);
-    return (0);
+		return (1);
+	}
+	else if (chdir(search_in_env("HOME")->value) == -1
+		&& search_in_env("HOME")->value != NULL)
+	{
+		free(home);
+		print_errore("minishell: cd: ");
+		perror(search_in_env("HOME")->value);
+		return (1);
+	}
+	pwd_update(home);
+	return (0);
 }
 
-
-int ft_cd(t_data *data)
+int	ft_cd(t_data *data)
 {
-    int i;
+	int	i;
 
-    if (data->args[1] == NULL)
-    {
-        i = home_cd();
-        return (i);
-    }
-    else if (data->args[2] != NULL)
-    {
-        print_errore("minishell: cd: too many arguments\n");
-        return (1);   
-    }
-    else
-    {
-        i = cd_to_path(data);
-        return (i);
-    }
-    return (0);
+	if (data->args[1] == NULL)
+	{
+		i = home_cd();
+		return (i);
+	}
+	else if (data->args[2] != NULL)
+	{
+		print_errore("minishell: cd: too many arguments\n");
+		return (1);
+	}
+	else
+	{
+		i = cd_to_path(data);
+		return (i);
+	}
+	return (0);
 }
