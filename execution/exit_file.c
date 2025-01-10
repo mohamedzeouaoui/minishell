@@ -6,15 +6,13 @@
 /*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 02:02:00 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/12 02:02:02 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:27:59 by mzeouaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    exit_clean(int exit_status)
+void	exit_clean(int exit_status)
 {
-    // free all malloced data;
-    exit(exit_status);
+	exit(exit_status);
 }
-
