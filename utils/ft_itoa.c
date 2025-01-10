@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 00:23:21 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/04 00:26:00 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/10 18:59:57 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char *ft_itoa(int n)
     tmp = n;
     while (tmp /= 10)
         len++;
-    str = malloc(sizeof(char) * (len + 1));
+    str = mallocc(sizeof(char) * (len + 1));
     if (!str)
         return NULL;
     str[len] = '\0';

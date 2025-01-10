@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 07:12:16 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 20:34:56 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/10 18:02:05 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char *get_var_name(t_helper *h, char *str)
             k++;
             h->i++;
         }
-        var_name = malloc(sizeof(char) * (k + 1));
+        var_name = mallocc(sizeof(char) * (k + 1));
         strncpy(var_name, &str[h->i - k], k);
         var_name[k] = '\0';
     }
@@ -92,9 +92,12 @@ void ft_get_var_value(t_helper *h, char *str)
 void ft_dollar_sign(t_helper *h, char *str)
 {
     h->i++;
-    if ((str[h->i] == '\"' && str[h->i - 2] == '\"') || str[h->i] == ' ' || str[h->i] == '$' || str[h->i] == '\0' || (str[h->i] == '\'' && str[h->i - 2] == '\'') )
+    if ((str[h->i] == '\"') || str[h->i] == ' ' || str[h->i] == '$' || str[h->i] == '\0' || (str[h->i] == '\'') )
     {
-        h->result[h->j++] = '$';
+        if (str[h->i] == '\0')
+            h->result[h->j++] = '$';
+        else 
+            h->result[h->j++] = ' ';
         return ;
     }
     if ((str[h->i] == '?' || isalnum(str[h->i]) || str[h->i] == '_'))
