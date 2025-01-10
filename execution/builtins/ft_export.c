@@ -64,36 +64,6 @@ int check_variable_valid(char *variable)
     return (0);
 }
 
-int allocate_variable(char *variable, char **var)
-{
-    int i;
-    int count;
-    
-    i = 0;
-    while (variable[i] && variable[i] != '=' && variable[i] != '+')
-        i++;
-    (*var) = (char *)mallocc(sizeof(char) * (i + 1));
-    count = i;
-    i = -1;
-    while (++i < count)
-        (*var)[i] = variable[i];
-    (*var)[i] = '\0';
-    return (count);
-}
-
-void append_env(char *var, char *value)
-{
-    t_env *tmp;
-    char *new_value;
-    
-    tmp = search_in_env(var);
-    new_value = (char *)mallocc(sizeof(char) * (ft_strlen(tmp->value) + ft_strlen(value) + 1));
-    new_value = ft_strcpy(new_value, tmp->value);
-    new_value = ft_strcat(new_value, value);
-    free(tmp->value);
-    tmp->value = new_value;
-}
-
 void add_to_export(char *var, char *value)
 {
     t_env *tmp;
