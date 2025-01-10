@@ -14,7 +14,6 @@
 
 int is_builtins(t_data *data)
 {
-    // printf("hhhhhh%shhhhhhh\n", data->args[0]);
     if (data->args == NULL || data == NULL || data->args[0] == NULL)
         return (0);
     if (ft_strncmp(data->args[0], "echo", 5) == 0)
@@ -96,13 +95,12 @@ int check_built(t_data *data, int prosses)
             return (1);
         }        
     }
-    // printf("")
     if (is_builtins(data) == 1)
         ft_builtins_run(data, prosses);
     else
         return (0);
     if (prosses == 0)
-        exit(get_shell_state()->exit_status ); // should be exit with ft_exit_clean !!!!
+        exit(get_shell_state()->exit_status );
     ft_dup2(file[0], 0);
     ft_dup2(file[1], 1);
     return (1);
