@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 19:19:32 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/10 23:00:37 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ int ft_isalnum(int c);
 char *ft_strcpy(char *str, char *str2);
 char *ft_strcat(char *str, char *str2);
 char	*ft_strchr(const char *s, int c);
-
-//----> set_last_arg
+void	ft_clean(void);
+void	ft_free_from_gc(void *ptr);
 
 // parsing
 t_data *tokenize_input(char *input);

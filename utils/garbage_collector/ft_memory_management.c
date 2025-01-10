@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 06:08:11 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 19:01:11 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/10 23:01:04 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,56 @@ void	*mallocc(size_t size)
 		*head = new;
 	}
 	return (new->ptr);
+}
+void	ft_clean(void)
+{
+	t_stack	**heap;
+	t_stack	*tmp;
+
+	heap = get_head();
+	while (*heap != NULL)
+	{
+		tmp = *heap;
+		(*heap) = (*heap)->next;
+		free(tmp->ptr);
+		free(tmp);
+	}
+}
+
+static int	ft_check_add(t_stack **head, t_stack *tmp, void *ptr)
+{
+	if (ptr == tmp->ptr)
+	{
+		*head= tmp->next;
+		free(tmp->ptr);
+		free(tmp);
+		return (1);
+	}
+	return (0);
+}
+
+void	ft_free_from_gc(void *ptr)
+{
+	t_stack	**head;
+	t_stack	*tmp;
+	t_stack	*to_delete;
+
+	head = get_head();
+	tmp = *head;
+	if (tmp == NULL)
+		return ;
+	if (ft_check_add(head, tmp, ptr))
+		return ;
+	while (tmp != NULL && tmp->next != NULL)
+	{
+		if (tmp->next->ptr == ptr)
+		{
+			to_delete = tmp->next;
+			tmp->next = tmp->next->next;
+			free(to_delete->ptr);
+			free(to_delete);
+			return ;
+		}
+		tmp = tmp->next;
+	}
 }
