@@ -12,20 +12,20 @@
 
 #include "../minishell.h"
 
-int check_dirctory(char *path)
+int	check_dirctory(char *path)
 {
-    struct stat sb;
+	struct stat	sb;
 
-    if (stat(path, &sb) == -1)
-    {
-        print_errore_mix("minishell: ", path, " no such file or directory\n", 127);
-        return (1);
-    }
-    if (S_ISDIR(sb.st_mode))
-    {
-        print_errore_mix("minishell: ", path, " is a directory\n", 126);
-        return (1);
-    }
-    return (0);
+	if (stat(path, &sb) == -1)
+	{
+		print_errore_mix("minishell: ", path, " no such file or directory\n",
+			127);
+		return (1);
+	}
+	if (S_ISDIR(sb.st_mode))
+	{
+		print_errore_mix("minishell: ", path, " is a directory\n", 126);
+		return (1);
+	}
+	return (0);
 }
-
