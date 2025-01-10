@@ -38,6 +38,16 @@ typedef struct s_data
 	struct s_data *next; // next node
 }					t_data;
 
+typedef struct s_variables
+{
+	int i;
+    int *id_child;
+    int fd_stdout_stored;
+    int last_process_id;
+    int status;
+    int pid;
+}					t_variables;
+
 typedef struct s_stack
 {
 	void			*ptr;
@@ -132,6 +142,8 @@ t_env *search_in_env(char *key);
 char **env_lst_to_tab(void);
 char **export_env_sorted(void);
 void ft_add_env(t_env **env, t_env *new);
+void append_env(char *var, char *value);
+int allocate_variable(char *variable, char **var);
 
 
 // execution
