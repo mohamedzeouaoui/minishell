@@ -12,19 +12,19 @@
 
 #include "../../minishell.h"
 
-int ft_env(char **env, int prosses)
+int	ft_env(char **env, int prosses)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    (void)prosses;
-    while(env != NULL && env[i] != NULL)
-    {
-        if (ft_strncmp(env[i], "_=", 2) == 0)
+	i = 0;
+	(void)prosses;
+	while (env != NULL && env[i] != NULL)
+	{
+		if (ft_strncmp(env[i], "_=", 2) == 0)
 			printf("_=env\n");
-        else
-            printf("%s\n", env[i]);
-        i++;
-    }
-    return (0);
+		else
+			printf("%s\n", env[i]);
+		i++;
+	}
+	return (0);
 }
