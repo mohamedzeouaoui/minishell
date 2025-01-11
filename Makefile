@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -g3 -fsanitize=address
+CFLAGS = -Werror -Wextra -Wall 
 RM = rm -rf
 UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c ./utils/ft_iswhitespace.c \
 	./utils/ft_lstsize.c ./utils/ft_lst.c ./utils/ft_strdup.c ./utils/ft_strjoin.c ./utils/ft_strlen.c \
@@ -21,10 +21,10 @@ NAME = minishell
 all : ${NAME}
 
 ${NAME} : ${OFILES}
-	${CC} ${CFLAGS} -g3 ${OFILES} -lreadline -o ${NAME}
+	${CC} ${CFLAGS} ${OFILES} -lreadline -o ${NAME}
 
 %.o: %.c
-	${CC} -c -g3 ${CFLAGS} $< -o $@
+	${CC} -c ${CFLAGS} $< -o $@
 
 clean :
 	${RM} ${OFILES}
