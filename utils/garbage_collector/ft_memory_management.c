@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 06:08:11 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/10 23:01:04 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 03:47:39 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
     **Returns: Address of the static head pointer
 */
 
-static  t_stack    **get_head(void)
+static	t_stack	**get_head(void)
 {
-    static t_stack *head;
-    return (&head);
+	static t_stack	*head;
+
+	return (&head);
 }
 
 /*
@@ -56,6 +57,7 @@ void	*mallocc(size_t size)
 	}
 	return (new->ptr);
 }
+
 void	ft_clean(void)
 {
 	t_stack	**heap;
@@ -75,7 +77,7 @@ static int	ft_check_add(t_stack **head, t_stack *tmp, void *ptr)
 {
 	if (ptr == tmp->ptr)
 	{
-		*head= tmp->next;
+		*head = tmp->next;
 		free(tmp->ptr);
 		free(tmp);
 		return (1);

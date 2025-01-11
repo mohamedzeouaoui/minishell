@@ -12,21 +12,21 @@
 
 #include "../minishell.h"
 
-char *ft_strcat(char *str, char *str2)
+char	*ft_strcat(char *str, char *str2)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    i = 0;
-    j = 0;
-    while (str[i])
-        i++;
-    while (str2[j])
-    {
-        str[i] = str2[j];
-        i++;
-        j++;
-    }
-    str[i] = '\0';
-    return (str);
+	i = 0;
+	j = 0;
+	while (str[i])
+		i++;
+	while (str2[j])
+	{
+		str[i] = str2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
 }

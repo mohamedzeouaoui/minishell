@@ -6,34 +6,79 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 00:23:21 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/10 18:59:57 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 03:33:39 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char *ft_itoa(int n)
+static long	if_nega(long n)
 {
-    char *str;
-    int len;
-    int sign;
-    int tmp;
+	if (n < 0)
+		return (-n);
+	return (n);
+}
 
-    sign = (n < 0);
-    len = 1 + sign;
-    tmp = n;
-    while (tmp /= 10)
-        len++;
-    str = mallocc(sizeof(char) * (len + 1));
-    if (!str)
-        return NULL;
-    str[len] = '\0';
-    if (sign)
-        str[0] = '-';
-    while (len-- > sign)
-    {
-        str[len] = n % 10 * (1 - 2 * sign) + '0';
-        n /= 10;
-    }
-    return str;
+static size_t	count_n(long n)
+{
+	size_t	cont;
+	long	m;
+
+	cont = 1;
+	m = if_nega(n);
+	while (m > 9)
+	{
+		m = m / 10;
+		cont++;
+	}
+	return (cont);
+}
+
+static char	*allocate(int nmb_d)
+{
+	char	*ptr;
+
+	ptr = mallocc(sizeof(char) * (nmb_d + 1));
+	if (!ptr)
+		return (NULL);
+	return (ptr);
+}
+
+static void	line25(int idx, char *str, long num)
+{
+	if (num < 0)
+	{
+		str[0] = '-';
+		num *= -1;
+	}
+	while (num > 9)
+	{
+		str[idx] = num % 10 + '0';
+		num = num / 10;
+		idx--;
+	}
+	str[idx] = num + '0';
+}
+
+char	*ft_itoa(int n)
+{
+	int		nmbr_dj;
+	long	num;
+	int		idx;
+	char	*str;
+
+	num = n;
+	nmbr_dj = count_n(n);
+	if (num < 0)
+	{
+		nmbr_dj++;
+	}
+	idx = nmbr_dj;
+	str = allocate(nmbr_dj);
+	if (!str)
+		return (NULL);
+	str[idx] = '\0';
+	idx--;
+	line25(idx, str, num);
+	return (str);
 }

@@ -21,7 +21,7 @@ int	ft_print_err(char *err)
 }
 
 void	ft_print_err1(char *s1, char *s2, char *s3, int f)
-{   
+{
 	ft_print_err(s1);
 	ft_print_err(s2);
 	ft_print_err(s3);

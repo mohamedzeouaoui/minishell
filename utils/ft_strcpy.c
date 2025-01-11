@@ -12,17 +12,16 @@
 
 #include "../minishell.h"
 
-char *ft_strcpy(char *str, char *str2)
+char	*ft_strcpy(char *str, char *str2)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str2[i])
-    {
-        str[i] = str2[i];
-        i++;
-    }
-    str[i] = '\0';
-    return (str);
+	i = 0;
+	while (str2[i])
+	{
+		str[i] = str2[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
-
