@@ -1,16 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 18:14:23 by asodor            #+#    #+#             */
-/*   Updated: 2024/12/05 18:24:31 by asodor           ###   ########.fr       */
+/*   Created: 2024/10/07 06:56:19 by asodor            #+#    #+#             */
+/*   Updated: 2025/01/09 17:37:45 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "minishell.h"
+#include <stdio.h>
+
 
 t_shell *get_shell_state(void)
 {
@@ -18,38 +21,33 @@ t_shell *get_shell_state(void)
     return (&s);
 } 
 
-void	minishell(void)
-{
-	char	*str;
-	t_data	*tmp;
-
-	str = NULL;
-	while (1)
-	{
-		// signals
-		str = readline("minishell $> ");
-		tokenize_input(str); // <-------- I'm Here
-		// add history
-		free(str);
-		// if (tmp != NULL)
-		// 	ft_exec(tmp, ft_lstsize(tmp));
-		// free
-	}
-}
-
 int main(int ac, char **av, char **env)
 {
+    t_data *cmd_list;
+    char *input;
+
+    t_shell *shell;
+
     (void)ac;
     (void)av;
-    t_shell *shell;
-    
+
     shell = get_shell_state();
+    get_shell_state()->herdoc = -1;
     shell->exit_status = 0;
     ft_parse_env(env, shell);
-	get_shell_state()->env = shell->env;
-	pwd_intialize();
-    minishell();
+    
+    while (1)
+    {
+		signal_cases_handel(0);
+        input = readline("minishell:> ");
+        if (!input)
+            break;
+        add_history(input);
+        cmd_list = tokenize_input(input);
+        t_data *current = cmd_list;
+            if (current)
+                ft_exec(current, ft_lstsize(current));
+        free(input);
+    }
     return 0;
 }
-
-
