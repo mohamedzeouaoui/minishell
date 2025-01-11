@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_fork_dup.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 15:20:15 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/31 15:20:17 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/11 04:35:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,17 @@ void	files_pipe(int fd_pipe[2], int fd_stdout_stored, int size, int i)
 		return ;
 	if (i == 0)
 	{
-		ft_dup2(fd_pipe[p_inp], 1);
-		close(fd_pipe[p_inp]);
-		close(fd_pipe[p_outp]);
+		ft_dup2(fd_pipe[P_INP], 1);
+		close(fd_pipe[P_INP]);
+		close(fd_pipe[P_OUTP]);
 	}
 	else if (i != 0 && i != size - 1)
 	{
 		ft_dup2(fd_stdout_stored, 0);
 		close(fd_stdout_stored);
-		ft_dup2(fd_pipe[p_inp], 1);
-		close(fd_pipe[p_inp]);
-		close(fd_pipe[p_outp]);
+		ft_dup2(fd_pipe[P_INP], 1);
+		close(fd_pipe[P_INP]);
+		close(fd_pipe[P_OUTP]);
 	}
 	else if (i == size - 1)
 	{

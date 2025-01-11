@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 17:00:38 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/10 20:36:30 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/11 04:35:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	close_fd_in_child(int *fd_stdout_stored, int fd_pipe[2], int size,
 		int i)
 {
 	if (size > 1 && i != size - 1)
-		close(fd_pipe[p_inp]);
+		close(fd_pipe[P_INP]);
 	if (*fd_stdout_stored != -1)
 		close(*fd_stdout_stored);
-	(*fd_stdout_stored) = fd_pipe[p_outp];
+	(*fd_stdout_stored) = fd_pipe[P_OUTP];
 }
 
 void	run_command_in_child_process(t_data *data, t_variables *var, int size)

@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:08:36 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/11 01:54:42 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 04:35:27 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_read_and_write(int fd[2], char *delimiter)
 {
 	char	*line;
 
-	close(fd[p_outp]);
+	close(fd[P_OUTP]);
 	line = NULL;
 	while (1)
 	{
@@ -77,11 +77,11 @@ void	ft_read_and_write(int fd[2], char *delimiter)
 			break ;
 		}
 		line = ft_expand_line(line);
-		write(fd[p_inp], line, ft_strlen(line));
-		write(fd[p_inp], "\n", 1);
+		write(fd[P_INP], line, ft_strlen(line));
+		write(fd[P_INP], "\n", 1);
 		free(line);
 	}
-	close(fd[p_inp]);
+	close(fd[P_INP]);
 	exit(0);
 }
 
@@ -105,11 +105,11 @@ int	ft_open_heredoc(char *delimiter)
 	signal_cases_handel(1);
 	waitpid(-1, &status, 0);
 	get_shell_state()->exit_status = WEXITSTATUS(status);
-	close(fd[p_inp]);
+	close(fd[P_INP]);
 	if (get_shell_state()->exit_status == 130
 		|| get_shell_state()->exit_status == 131)
 		return (-1);
-	return (fd[p_outp]);
+	return (fd[P_OUTP]);
 }
 
 int	ft_heredoc(t_data *cmd_list)
