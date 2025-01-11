@@ -23,7 +23,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
-
 #include <assert.h>
 
 # define p_inp 1
@@ -33,9 +32,9 @@ typedef struct s_files t_files;
 
 typedef struct s_data
 {
-	char **args;         //--> cmd args ex: "ls" "-la"
-	t_files *files;      //
-	struct s_data *next; // next node
+	char **args;
+	t_files *files;
+	struct s_data *next;
 }					t_data;
 
 typedef struct s_variables
@@ -85,7 +84,6 @@ typedef struct s_helper
 	bool from_env;
 } t_helper;
 
-// utils
 unsigned int	ft_strlen(const char *s1);
 char    *ft_strdup(const char *s1);
 char    *ft_strjoin(char const *s1, char const *s2, size_t n);
@@ -116,26 +114,23 @@ char	*ft_strchr(const char *s, int c);
 void	ft_clean(void);
 void	ft_free_from_gc(void *ptr);
 
-// parsing
 t_data *tokenize_input(char *input);
 void parse_redirections(t_data *cmd_list);
 t_data	*ft_errors(t_data *cmd_list);
 t_shell *get_shell_state(void);
-// expand
+
 void ft_dollar_sign(t_helper *h, char *str);
 void ft_handle_quotes(t_helper *h, char *str);
 void ft_get_var_value(t_helper *h, char *str);
 char **ft_remove_quotes(char *file);
 void ft_expand(t_data *cmd_list);
 
-// heredoc
 int	ft_isdigit(int d);
 int	ft_isalnum(int c);
 char *expand_env_var(char *str);
 char *ft_get_name(int *i, char *str);
 int ft_heredoc(t_data *cmd_list);
 
-// env
 t_env *ft_env_new_node(char *k, char *v);
 char *ft_key(char *env, int *i) ;
 char *ft_value(char *env, int *i);
@@ -148,7 +143,6 @@ void append_env(char *var, char *value);
 int allocate_variable(char *variable, char **var);
 
 
-// execution
 void    ft_exec(t_data *data, int size);
 int check_built(t_data *data, int prosses);
 char **env_lst_to_tab(void);
@@ -163,13 +157,8 @@ int check_dirctory(char *path);
 void command_not_found(t_data *data);
 void check_run_path_not_commande(char *path, t_data *data);
 
-//SIGNALS
-
 void	signal_cases_handel(int cas);
 
-
-
-// builtins
 int ft_echo(t_data *data);
 int ft_cd(t_data *data);
 int ft_env(char **env, int prosses);
@@ -179,7 +168,6 @@ void ft_exit(t_data *data, int prosses, int *exit_status);
 int ft_unset(t_data *data);
 void    ft_export(t_data *data, int *exit_status);
 
-//redirection
 int ft_dup2(int fd1, int fd2);
 int input_file_clear(t_files *file);
 int input_file_append(t_files *file);
