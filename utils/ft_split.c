@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 20:03:09 by mzeouaou          #+#    #+#             */
-/*   Updated: 2024/12/23 20:03:13 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/10 17:39:20 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../minishell.h"
 
@@ -83,7 +82,7 @@ char	**ft_split(char const *s, char c)
 	if (!s)
 		return (NULL);
 	nmbr_word = countword(s, c);
-	big_str = malloc(sizeof(char *) * (nmbr_word + 1));
+	big_str = mallocc(sizeof(char *) * (nmbr_word + 1));
 	if (big_str == NULL)
 		return (NULL);
 	big_str[nmbr_word] = 0;

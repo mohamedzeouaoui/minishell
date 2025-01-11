@@ -1,10 +1,10 @@
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -g3 -fsanitize=address
+CFLAGS = -Werror -Wextra -Wall -g3 #-fsanitize=address
 RM = rm -rf
 UTILS = ./utils/garbage_collector/ft_memory_management.c ./utils/ft_cmd_join.c ./utils/ft_iswhitespace.c \
 	./utils/ft_lstsize.c ./utils/ft_lst.c ./utils/ft_strdup.c ./utils/ft_strjoin.c ./utils/ft_strlen.c \
 	./utils/ft_strncmp.c ./utils/ft_substr.c  ./utils/ft_print.c ./utils/print_errore.c ./utils/ft_putstr_fd.c \
-	./utils/ft_split.c ./utils/ft_itoa.c ./utils/ft_isalpha.c ./utils/ft_strcpy.c ./utils/ft_strcat.c
+	./utils/ft_split.c ./utils/ft_itoa.c ./utils/ft_isalpha.c ./utils/ft_strcpy.c ./utils/ft_strcat.c ./utils/ft_strncpy.c
 ENV = ./env/env.c ./env/env_utils.c ./env/ft_parse_env.c ./env/env_export.c
 HEREDOC = ./heredoc/ft_heredoc.c  ./heredoc/ft_heredoc_utils.c
 PARSING = ./parsing/lexer.c ./parsing/parse_redirections.c ./parsing/syntax_error.c ./parsing/expand/expand.c \

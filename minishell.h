@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/09 19:19:32 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 02:06:38 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,15 @@ int print_errore_exit(char *error, int exit_status);
 char	**ft_split(char const *s, char c);
 char *ft_itoa(int n);
 int	ft_lstsize_env(t_env *lst);
+t_files	*add_last(t_files **files, t_files *new_file);
 int ft_isalpha(char c);
 int ft_isalnum(int c);
 char *ft_strcpy(char *str, char *str2);
+char	*ft_strncpy(char *dst, const char *src, size_t len);
 char *ft_strcat(char *str, char *str2);
 char	*ft_strchr(const char *s, int c);
-
-//----> set_last_arg
+void	ft_clean(void);
+void	ft_free_from_gc(void *ptr);
 
 // parsing
 t_data *tokenize_input(char *input);
