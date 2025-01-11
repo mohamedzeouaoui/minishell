@@ -45,12 +45,14 @@ int	cd_to_path(t_data *data)
 				"getcwd: cannot access parent directories: ",
 				"No such file or directory\n",
 				-1);
+		free(path);
 		return (1);
 	}
 	else if (data->args[1][0] != '\0' && chdir(data->args[1]) == -1)
 	{
 		print_errore("minishell: cd: ");
 		perror(data->args[1]);
+		free(path);
 		return (1);
 	}
 	pwd_update(path);
