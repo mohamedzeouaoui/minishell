@@ -42,21 +42,16 @@ void	signal_cases_handel(int cas)
 {
 	if (cas == 0)
 	{
-        //get_shell_state()->exit_status = 130;
 		ft_signal(SIGINT, signal_handler);
 		ft_signal(SIGQUIT, SIG_IGN);
 	}
 	else if (cas == 1)
 	{
-        // get_shell_state()->exit_status = 130;
 		ft_signal(SIGINT, SIG_IGN);
 		ft_signal(SIGQUIT, SIG_IGN);
 	}
-    else if (cas == 2)
-    {
-        signal(SIGINT, SIG_DFL);
-    }
+	else if (cas == 2)
+	{
+		signal(SIGINT, SIG_DFL);
+	}
 }
-
-
-

@@ -12,29 +12,30 @@
 
 #include "../../minishell.h"
 
-void pwd_intialize(void) 
+void	pwd_intialize(void)
 {
-    get_shell_state()->pwd = getcwd(NULL, 0);
+	get_shell_state()->pwd = getcwd(NULL, 0);
 }
 
-int ft_pwd()
+int	ft_pwd(void)
 {
-    char *path;
+	char	*path;
 
-    path = getcwd(NULL, 0);
-    if(path == NULL && get_shell_state()->pwd != NULL)
-        printf("%s\n", get_shell_state()->pwd);
-    else if (path == NULL && get_shell_state()->pwd == NULL)
-    {
-        print_errore_mix("pwd: error retrieving current directory:",
+	path = getcwd(NULL, 0);
+	if (path == NULL && get_shell_state()->pwd != NULL)
+		printf("%s\n", get_shell_state()->pwd);
+	else if (path == NULL && get_shell_state()->pwd == NULL)
+	{
+		print_errore_mix("pwd: error retrieving current directory:",
 			"getcwd: cannot access parent directories: ",
-			"No such file or directory", -1);
-        return (1);
-    }
-    else
-    {
-        printf("%s\n", path);
-        free(path);
-    }
-    return (0);
+			"No such file or directory",
+			-1);
+		return (1);
+	}
+	else
+	{
+		printf("%s\n", path);
+		free(path);
+	}
+	return (0);
 }
