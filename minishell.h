@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 02:02:54 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/10 23:46:05 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 02:06:38 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int print_errore_exit(char *error, int exit_status);
 char	**ft_split(char const *s, char c);
 char *ft_itoa(int n);
 int	ft_lstsize_env(t_env *lst);
+t_files	*add_last(t_files **files, t_files *new_file);
 int ft_isalpha(char c);
 int ft_isalnum(int c);
 char *ft_strcpy(char *str, char *str2);

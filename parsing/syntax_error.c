@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 01:38:01 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/11 00:13:56 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 02:11:10 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 t_data	*ft_red_error(t_data *cmd_list)
 {
-	t_data			*curr;
+	t_data	*curr;
 	t_files	*tmp;
-	t_shell		*shell;
-	
+	t_shell	*shell;
+
 	shell = get_shell_state();
 	curr = cmd_list;
 	while (curr)
@@ -52,8 +52,8 @@ t_data	*ft_pipe_error(t_data *cmd_list)
 				|| (curr->next->args == NULL && curr->next->files == NULL))
 			{
 				get_shell_state()->exit_status = 2;
-				return (ft_print_err("syntax error near unexpected token `|'\n")
-					, NULL);
+				ft_print_err("syntax error near unexpected token `|'\n");
+				return (NULL);
 			}
 		}
 		curr = curr->next;
@@ -61,7 +61,7 @@ t_data	*ft_pipe_error(t_data *cmd_list)
 	return (cmd_list);
 }
 
-int ft_count_herdoc(t_data *cmd_list)
+int	ft_count_herdoc(t_data *cmd_list)
 {
 	t_data	*curr;
 	t_files	*tmp;
@@ -85,7 +85,7 @@ int ft_count_herdoc(t_data *cmd_list)
 
 t_data	*ft_errors(t_data *cmd_list)
 {
-	int herdoc;
+	int	herdoc;
 
 	herdoc = ft_count_herdoc(cmd_list);
 	if (!ft_red_error(cmd_list) || !ft_pipe_error(cmd_list) || herdoc > 16)
@@ -106,5 +106,3 @@ t_data	*ft_errors(t_data *cmd_list)
 		ft_heredoc(cmd_list);
 	return (cmd_list);
 }
-
-
