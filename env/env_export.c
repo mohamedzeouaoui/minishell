@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzeouaou <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/03 12:18:48 by mzeouaou          #+#    #+#             */
-/*   Updated: 2025/01/03 12:18:51 by mzeouaou         ###   ########.fr       */
+/*   Updated: 2025/01/11 01:15:52 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char **export_env_sorted(void)
 
     i = 0;
     tmp = get_shell_state()->env;
-    env = (char **)malloc(sizeof(char *) * (ft_lstsize_env(tmp) + 1));
+    env = (char **)mallocc(sizeof(char *) * (ft_lstsize_env(tmp) + 1));
     if (!env)
         return (NULL);
     while (tmp)

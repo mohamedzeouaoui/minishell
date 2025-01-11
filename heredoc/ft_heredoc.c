@@ -6,7 +6,7 @@
 /*   By: asodor <asodor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 13:08:36 by asodor            #+#    #+#             */
-/*   Updated: 2025/01/11 00:03:19 by asodor           ###   ########.fr       */
+/*   Updated: 2025/01/11 01:11:08 by asodor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char *ft_expand_line(char *line)
             i++;
         }
     }
+    free(line);
     return (expanded_line);
 }
 
