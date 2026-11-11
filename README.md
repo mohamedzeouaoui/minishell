@@ -9,6 +9,7 @@
   <img alt="Language" src="https://img.shields.io/badge/language-C-blue">
   <img alt="Norm" src="https://img.shields.io/badge/norminette-passing-brightgreen">
   <img alt="42" src="https://img.shields.io/badge/school-42-black">
+  <img alt="Score" src="https://img.shields.io/badge/score-101%2F100-success">
 </p>
 
 ---
@@ -91,7 +92,7 @@ brew install readline
 ### Build
 
 ```bash
-git clone https://github.com/<your-username>/minishell.git
+git clone https://github.com/mohamedzeouaoui/minishell.git
 cd minishell
 make
 ```
@@ -165,24 +166,17 @@ minishell$ echo "$HOME"
 
 ```text
 minishell/
+├── .gitignore
 ├── Makefile
 ├── README.md
-├── includes/
-│   └── minishell.h
-├── libft/                # Custom C library
-├── src/
-│   ├── main.c            # Entry point and main loop
-│   ├── lexer/            # Tokenization
-│   ├── parser/           # Command / AST construction
-│   ├── expander/         # Variable and quote expansion
-│   ├── executor/         # Pipes, redirections, process handling
-│   ├── builtins/         # echo, cd, pwd, export, unset, env, exit
-│   ├── signals/          # Signal handlers
-│   └── utils/            # Helpers and memory management
-└── tests/
+├── main.c                # Entry point and main loop
+├── minishell.h           # Structures, prototypes and macros
+├── env/                  # Environment management (copy, get, set, unset)
+├── execution/            # Command execution, pipes, redirections, built-ins
+├── heredoc/              # Heredoc handling (<<)
+├── parsing/              # Lexer, syntax checks, expansion, command building
+└── utils/                # Helper functions and memory management
 ```
-
-> Adjust this tree to match your own layout.
 
 ## How It Works
 
@@ -236,8 +230,8 @@ Edge cases worth testing:
 
 ## Authors
 
-- **Your Name**: [@your-login](https://github.com/your-login)
-- **Partner Name**: [@partner-login](https://github.com/partner-login)
+- **Mohamed Zeouaoui** (mzeouaou): [@mohamedzeouaoui](https://github.com/mohamedzeouaoui)
+- **Anass Sodor** (asodor): [@anasooo](https://github.com/anasooo)
 
 ## Acknowledgments
 
